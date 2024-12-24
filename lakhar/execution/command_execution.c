@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/22 18:28:06 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/24 04:29:42 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,27 @@ int     cmd_execution(char **cmd)
 		        ft_putstr_fd(" is a directory \n", 2);
                 exit(126);
             }
-            if(find_path(cmd) && !path_check(cmd[0]))
+            else if(find_path(cmd) && !path_check(cmd[0]))
             {
                 if (execve(global.path, cmd, global.env_copy) == -1)
                     exit (0);
             }
-            if(path_check(cmd[0]) && access(cmd[0], X_OK) == 0)
+            if(path_check(cmd[0]) && access(cmd[0], F_OK) == 0)
             {
-                if (execve(cmd[0], cmd, global.env_copy) == -1)
-                {     
-                    printf("p_d\n");
-                    exit (0);
+                if (access(cmd[0], X_OK) == -1)
+                {
+                    ft_putstr_fd("Minishell: ", 2);
+                    ft_putstr_fd(cmd[0], 2);
+                    ft_putstr_fd(" Permission denied \n", 2);
+                    exit(126);  
                 }
+                else if (execve(cmd[0], cmd, global.env_copy) == -1)
+                    printf("all is good\n");
+            }
+            else
+            {
+                printf("command not found\n");
+                exit(127);
             }
         }
         else
