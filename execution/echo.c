@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:25:47 by rabie             #+#    #+#             */
-/*   Updated: 2024/12/19 16:16:15 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/25 23:58:43 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    echo(char **cmd)
     while (cmd[j])
     {   
         printf("%s", cmd[j]);
-        if (cmd[j + 1]);
+        if (cmd[j + 1])
             printf(" ");
         j++;
     }    

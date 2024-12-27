@@ -18,20 +18,26 @@ int main(int argc, char **argv, char **env)
     {
         rl = readline("minishell --> ");
         if(!rl)
+        {
             break;
+        }
         global.executed = 1;
         add_history(rl);
         input = ft_parse(rl);
-        printf("%d\n", input->redirections->tok);
-        printf("%d\n", input->redirections->right->tok);
-        if(input == NULL)
-	    {
-	    	// printf("failes\n");
-	    	exit(1);
-	    }
-        // printf("tok = %d\n", input->tok);
+        // if (input->redirections != NULL)
+        // {
+        //     printf("%d\n", input->redirections->tok);
+            
+        //     printf("%d\n", input->redirections->right->tok);
+        //     printf("-------------------\n");
+        //     // exit(0);
+        // }
+            // eprintf("%d\n", input->redirections->right->tok);
         ft_execute(input);
+        // sleep(100);
         global.executed = 0;
     }
+    printf("dddddddddhere\n");
+
 	return 0;
 }

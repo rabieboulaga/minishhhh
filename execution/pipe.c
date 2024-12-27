@@ -6,17 +6,12 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:47:51 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/19 09:51:42 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/26 00:42:20 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-
-// void    left_child(s_input *input, s_global *global, int *pipefd)
-// {
-    
-// }
 
 int     single_pipe(s_input *input)
 {
@@ -54,20 +49,20 @@ int     single_pipe(s_input *input)
     waitpid(right, NULL, 0);   
     return 0;
 }   
-int     exe(char **cmd ,s_input *input)
-{
+// int     exe(char **cmd ,s_input *input)
+// {
     
-    if (input->tok == PIPE)
-        single_pipe(input);
-    else if (input->tok == STR)
-        builtins(cmd);
-    // else if (input->tok == IN || input->tok == OUT)
-    // {    
-    //     redirections(input, global);    
-    //     printf(">dsfsdfsdfsdfsd\n");
-    // }
-    return 0;
-}
+//     if (input->tok == PIPE)
+//         single_pipe(input);
+//     else if (input->tok == STR)
+//         builtins(cmd);
+//     // else if (input->tok == IN || input->tok == OUT)
+//     // {    
+//     //     redirections(input, global);    
+//     //     printf(">dsfsdfsdfsdfsd\n");
+//     // }
+//     return 0;
+// }
     
     
     

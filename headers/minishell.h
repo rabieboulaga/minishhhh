@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+#include <fcntl.h>   
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -155,7 +156,6 @@ int check_variable(char *var);
 int     export_listing(char **cmd);
 int     export(char **cmd);
 int     single_pipe(s_input *input);
-int     exe(char **cmd ,s_input *input);
 int    pwd();
 int     redirections(s_input *input);
 int	env_cmp(const char *str1, const char *str2);
@@ -164,5 +164,6 @@ int     unset(char **cmd);
 int	ft_ncmp(const char *str1, const char *str2, int n);
 int	find_char(char *s, char c);
 
+// int     exe(char **cmd ,s_input *input);
 
 #endif

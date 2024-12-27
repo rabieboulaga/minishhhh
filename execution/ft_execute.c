@@ -4,6 +4,10 @@ void ft_execute(s_input *input)
 {
     if(!input)
         return;
+    else if (input->redirections)
+    {    
+        redirections(input);
+    }
     else if(input->tok == AND)
         return(exec_and(input));
     // else if(input->tok == OR)
@@ -11,7 +15,8 @@ void ft_execute(s_input *input)
     else if(input->tok == PIPE)
         single_pipe(input);
     else if(input->tok == STR)
-        return(exec_str(input)); 
+        return(exec_str(input));
+    
 }
 
 void exec_and(s_input *input)
