@@ -26,18 +26,23 @@ int main(int argc, char **argv, char **env)
         input = ft_parse(rl);
         // if (input->redirections != NULL)
         // {
-        //     printf("%d\n", input->redirections->tok);
+        //     if (input->left)
+        //         printf("left %d\n", input->left->tok);
+        //     if (input->right)
+        //         printf("right %d\n", input->right->tok);
+        //     exit(0);
+        //     // printf("%d\n", input->redirections->tok );
+
+        //     // fprintf(stderr ,"1 -> %d\n", input->redirections->tok);
             
-        //     printf("%d\n", input->redirections->right->tok);
+        //     // fprintf(stderr ,"2 -> %d\n", input->redirections->right->tok);
         //     printf("-------------------\n");
         //     // exit(0);
         // }
             // eprintf("%d\n", input->redirections->right->tok);
+        
         ft_execute(input);
-        // sleep(100);
         global.executed = 0;
     }
-    printf("dddddddddhere\n");
-
 	return 0;
 }

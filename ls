@@ -4,6 +4,6 @@ headers
 libft_torename
 ls
 makefile
-minishell
 parsing
+wc
 z
