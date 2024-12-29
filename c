@@ -1,0 +1,14 @@
+c
+execution
+headers
+libft_torename
+makefile
+minishell
+parsing
+c
+execution
+headers
+libft_torename
+makefile
+minishell
+parsing

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:52:34 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/29 21:10:36 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/30 00:35:08 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,16 @@ int     in_out_files(s_input *input)
         else if(input->redirections->tok == OUT)
         {
             fd = open(input->redirections->file, O_WRONLY | O_CREAT | O_TRUNC , 0666);
+            if (fd == -1)
+            {
+                ft_putstr_fd("Minishell: ", 2);
+                return (perror(input->redirections->file), 0);
+            }
+            do_direct(fd, STDOUT_FILENO);
+        }
+        else if(input->redirections->tok == APPEND)
+        {
+            fd = open(input->redirections->file, O_WRONLY | O_CREAT | O_APPEND , 0666);
             if (fd == -1)
             {
                 ft_putstr_fd("Minishell: ", 2);
