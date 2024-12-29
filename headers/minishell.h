@@ -166,7 +166,7 @@ int	find_char(char *s, char c);
 int     in_out_files(s_input *input);
 
 //-----------------------------
-int     check_in(s_input *input);
+// int     check_in(s_input *input);
 
 
 // int     exe(char **cmd ,s_input *input);

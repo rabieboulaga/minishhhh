@@ -1,9 +1,0 @@
-asd
-execution
-headers
-libft_torename
-ls
-makefile
-parsing
-wc
-z

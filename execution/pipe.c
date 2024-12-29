@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:47:51 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/29 00:53:32 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/29 21:17:07 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int     single_pipe(s_input *input)
 {
+        
     int pipefd[2];
 
     pipe(pipefd);
@@ -29,8 +30,8 @@ int     single_pipe(s_input *input)
             single_pipe(input->left);    
         if (input->left->command)
         {
-            // in_out_files(input);
-            exec_str(input->left);
+            if(in_out_files(input->left))
+                exec_str(input->left);
         }
         exit(0);
     }
@@ -40,8 +41,8 @@ int     single_pipe(s_input *input)
         close(pipefd[1]);
         dup2(pipefd[0], STDIN_FILENO);
         close(pipefd[0]);
-        // in_out_files(input);
-        exec_str(input->right);        
+        if(in_out_files(input->right))
+            exec_str(input->right);        
         exit(0);
     }
     close(pipefd[1]);

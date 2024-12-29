@@ -6,7 +6,7 @@ void ft_execute(s_input *input)
         return;
     else if (input->redirections)
     {    
-        redirections(input);
+        redi_in(input);
     }
     else if(input->tok == AND)
         return(exec_and(input));
