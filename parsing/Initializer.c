@@ -54,6 +54,7 @@ void ft_initialize_env(char **env)
         global.env_copy[i] = ft_strdup(env[i]);
         i++;
     }
+	global.env_copy[i] = NULL;
 }
 
 void    ft_initialize(char **env, int *fd_input, int *fd_output)

@@ -166,6 +166,14 @@ int	find_char(char *s, char c);
 int     in_out_files(s_input *input);
 int     redi_in(s_input *input);
 
+
+
+void	delete_quotes(char **args);
+char	*new_cmd(char *s, int *flg);
+void	should_expnd(int *flg);
+int	calc_len(char *s);
+
+
 //-----------------------------
 // int     check_in(s_input *input);
 
