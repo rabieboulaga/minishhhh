@@ -64,14 +64,20 @@ int check_next_quote(char *s, char c)
 	int i;
 
 	i = 0;
+	// printf("the charchater in this is [%c] \n", *s);
+	if (!s)
+        return -1;
+
 	while(*s)
 	{
+		// printf("[%c] is not equal to [%c]\n", *s, c);
+		// printf("i is [%d]\n", i);
 		if (*s == c)
 			return(i);
 		i++;
 		s++;
 	}
-	printf("syntax error: unclosed quotes");
+	// printf("syntax error: unclosed quotes");
 	return -1;
 }
 
@@ -219,7 +225,6 @@ s_input	*token_2(char *s ,int *i ,s_token tok)
 	save = *i;
 	redir = NULL;
 	// printf("%d\n", tok);
-	// exit(1);
 	while(check_true(tok) == 1)
 	{
 		if (tok != STR)
@@ -229,7 +234,10 @@ s_input	*token_2(char *s ,int *i ,s_token tok)
 		}
 		else
 			save++;
-		tok = return_token(s[save], s[save + 1]);
+		if (s[save] == '\0')
+			tok = return_token(s[save], 'x');
+		else 
+			tok = return_token(s[save], s[save + 1]);
 		j++;
 	}
 	save = str_len(s, *i, 1);

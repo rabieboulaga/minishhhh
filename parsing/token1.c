@@ -160,8 +160,11 @@ int token_1(s_input **head, char *s, int *i, int *par)
 {
     s_token tok;
     s_input *new;
-
-    tok = return_token(s[*i], s[(*i) + 1]);
+	
+	if(s[*i] == '\0')
+        tok = return_token(s[*i], 'x');
+    else
+        tok = return_token(s[*i], s[(*i) + 1]);
     if(check_not_operator(tok) == 0)
     {
         if(return_token_syntax(tok,s,i,par) == 0)

@@ -4,7 +4,10 @@ int check_beggining(char *str)
 {
     s_token tok;
 
-    tok = return_token(str[0], str[1]);
+    if(str[0] == '\0')
+        tok = return_token(str[0], 'x');
+    else
+        tok = return_token(str[0], str[1]);
     if(tok == OR || tok == AND || tok == PIPE || tok == RPR)
     {
         printf("Error");

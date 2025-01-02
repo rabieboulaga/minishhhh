@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/01 23:42:08 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:18:31 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int    path_check(char *str)
     int i;
 
     i = ft_strlen(str);
-    if(str[0] == '.' && str[1] == '/')
+    if (str[0] == 0)
+        return 0;
+    else if(str[0] == '.' && str[1] == '/')
         return 1;
     else if(str[0] == '.' && str[1] == '.' && str[2] == '/')
         return 1;

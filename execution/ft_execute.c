@@ -15,7 +15,8 @@ void ft_execute(s_input *input)
     else if(input->tok == PIPE)
         single_pipe(input);
     else if(input->tok == STR)
-        return(exec_str(input));    
+        return(exec_str(input));
+    
 }
 
 void exec_and(s_input *input)
@@ -202,6 +203,33 @@ int is_legit(int c)
 //     return(NULL);
 // }
 
+char *ft_getenv(char *s)
+{
+    int i;
+    int j;
+    char *output;
+    i = 0;
+    j = ft_strlen(s);
+
+    while(global.env_copy[i] && j>0)
+    {
+        // printf("[%d]->", ft_strncmp(s, global.env_copy[i], j+1));
+        if(ft_strncmp(s, global.env_copy[i], j+1) == -61)
+        {
+            output = ft_strdup(&global.env_copy[i][j + 1]);
+            if (!output)
+            {
+                // printf("Memory allocation failed in ft_getenv\n");
+                return NULL;
+            }
+            // printf("%s\n", output);
+            return output;
+        }
+        i++;
+    }
+    // printf("unfound expand\n");
+    return NULL;
+}
 char *expand_var(char *str, int *i)
 {
     int save;
@@ -214,17 +242,18 @@ char *expand_var(char *str, int *i)
         (*i)++;
         ft_itoa(global.exited);
     }
-    while (is_legit(s[save]))
+    while (is_legit(str[save]) == 1)
         save++;
     save -= *i;
     s = ft_substr(str, *i, save);
     // v = ft_getenv(s);
+    // printf("--> %s\n", v);
     *i += save;
-    // if (!v)
-    // {
-    //     free(s);
-    //     return (NULL);
-    // }
+    if (!v)
+    {
+        free(s);
+        return (NULL);
+    }
     free(s);
     return (v);
 }
@@ -244,6 +273,7 @@ int length_val(char *str, int *i)
         return (0);
     if (flag)
         free(val);
+    len = ft_strlen(val);
     return (len);   
 }
 int find_len(char *str)
@@ -262,10 +292,10 @@ int find_len(char *str)
             ret += look_for_1_quote(str, &i, str[i]);
         else if(str[i] == 34)
             ret += look_for_1_quote(str, &i, str[i]);
-        else if (str[i] == '$' && (is_legit(str[i + 1]) || str[i + 1] == '?'))
-            ret += length_val(str, &i);
-        else if(str[i] == '$' && (str[i + 1] == 34 || str[i + 1] == 39))
-            i++;
+        // else if (str[i] == '$' && (is_legit(str[i + 1]) || str[i + 1] == '?'))
+        //     ret += length_val(str, &i);
+        // else if(str[i] == '$' && (str[i + 1] == 34 || str[i + 1] == 39))
+        //     i++;
         else
         {
             i++;
@@ -304,14 +334,23 @@ int	calc_len(char *s)
 	int	    l;
 	int	    save;
 	char	keep;
-
+    static int i = 0;
 	l = 0;
+        // printf("l??  %s\n", s);
+
+    // printf("START START CALC LEN\n----------------------------\n");
+    // printf("we are workin in %s\n", s);
 	while (*s)
 	{
 		if (*s == 34 || *s == 39)
 		{
 			keep = *s;
-			save = check_next_quote(s++, keep);
+            // printf("Kepp is actualy [%c]\n", keep);
+            // printf("the [%c] is the s\n", *(s+1));
+			save = check_next_quote(s, keep);
+            // printf("the s is [%s] and the save -> [%d]\n", s, save);
+            if (save == -1)
+                return (-1);
 			s += save + 1;
 			l += save;
 		}
@@ -320,7 +359,12 @@ int	calc_len(char *s)
 		    s++;
 		    l++;
         }
+    // printf("--> %s\n", s);
 	}
+    // printf(" gonna return [%d] time\n", i);
+    i++;
+        // printf("END END CALC LEN\n----------------------------\n");
+    // printf("lllllllll [%d]\n", l);
 	return (l);
 }
 char	*new_cmd(char *s, int *flg)
@@ -329,7 +373,7 @@ char	*new_cmd(char *s, int *flg)
 	char	*save;
 	int	l;
 	char	keep;
-
+            
 	new = malloc(sizeof(char) * (calc_len(s) + 1));
 	if (!new)
 	{
@@ -342,6 +386,8 @@ char	*new_cmd(char *s, int *flg)
 	{
 		if (*s == 34 || *s == 39)
 		{
+            // printf("EEEEEEEEEEEEEEEEE\n");
+            // exit(0);
 			keep = *s++;
 			should_expnd(flg);
 			while (*s != keep)
@@ -361,9 +407,12 @@ void	delete_quotes(char **args)
 	while (*args)
 	{
 		str = new_cmd(*args, NULL);
+        if(!str)
+            return;
 		*args = str;
 		args++;
 	}
+
 }
 char **parsing_cmd(char *str)
 {
@@ -375,12 +424,15 @@ char **parsing_cmd(char *str)
     len = 0;
     i = 0;
     len = find_len(str);
+    // printf("%s", str);
+    // exit(0);
     if(len<0)
         return(NULL);
     cmd = malloc(sizeof(char) * (len + 1));
     if(!cmd)
         return(NULL);
     return_cmd = fill_command(str, len, &i, 0);
+    
     delete_quotes(return_cmd);
     return(return_cmd);
 }
