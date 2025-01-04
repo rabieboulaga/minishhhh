@@ -208,6 +208,7 @@ s_redir	*node_create_redirection(char **s, s_token tok)
 	}
 	node->tok = tok;
 	node->file = s[0];
+	node->fd = -1;
 	node->flag = 1;
 	node->left = NULL;
 	node->right = NULL;

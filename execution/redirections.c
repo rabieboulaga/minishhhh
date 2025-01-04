@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:52:34 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/30 00:35:08 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:33:30 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int     redi_in(s_input *input)
     fd1 = dup(STDOUT_FILENO);
     fd0 = dup(STDIN_FILENO); 
     if (in_out_files(input))        //save current stdin
-        exec_str(input);                // execute the cmd 
+        exec_str(input);              // execute the cmd 
     dup2(fd0, STDIN_FILENO);         //restore original stdin 
     dup2(fd1, STDOUT_FILENO);
     close(fd0);
@@ -73,42 +73,48 @@ static int    do_direct(int fd, int dest)
 int     in_out_files(s_input *input)
 {
     int fd;
+    s_redir *tmp;
     
-    while (input->redirections != NULL)
+    while (tmp != NULL)
     {
-        if (input->redirections->tok == IN)
+        if (tmp->tok == IN)
         {
-            fd = open(input->redirections->file, O_RDONLY);
+            fd = open(tmp->file, O_RDONLY);
             if (fd == -1)
             {
                 ft_putstr_fd("Minishell: ", 2);
-                return (perror(input->redirections->file), 0);
+                return (perror(tmp->file), 0);
             }
             do_direct(fd, STDIN_FILENO);
+            return (1);
+
         }
-        else if(input->redirections->tok == OUT)
+        else if(tmp->tok == OUT)
         {
-            fd = open(input->redirections->file, O_WRONLY | O_CREAT | O_TRUNC , 0666);
+            fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC , 0666);
             if (fd == -1)
             {
                 ft_putstr_fd("Minishell: ", 2);
-                return (perror(input->redirections->file), 0);
+                return (perror(tmp->file), 0);
             }
             do_direct(fd, STDOUT_FILENO);
+            return (1);
+
         }
-        else if(input->redirections->tok == APPEND)
+        else if(tmp->tok == APPEND)
         {
-            fd = open(input->redirections->file, O_WRONLY | O_CREAT | O_APPEND , 0666);
+            fd = open(tmp->file, O_WRONLY | O_CREAT | O_APPEND , 0666);
             if (fd == -1)
             {
                 ft_putstr_fd("Minishell: ", 2);
-                return (perror(input->redirections->file), 0);
+                return (perror(tmp->file), 0);
             }
             do_direct(fd, STDOUT_FILENO);
+            return (1);
         } 
-        input->redirections = input->redirections->right;
+        tmp = tmp->right;
     }
-    return (1);
+    return (0);
 }
 
     // check_in(input);

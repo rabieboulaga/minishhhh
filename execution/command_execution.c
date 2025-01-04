@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/02 20:18:31 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/04 23:00:10 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int    path_check(char *str)
 
     i = ft_strlen(str);
     if (str[0] == 0)
+    {
+        printf("you should print command not found\n");
         return 0;
+    }
     else if(str[0] == '.' && str[1] == '/')
         return 1;
     else if(str[0] == '.' && str[1] == '.' && str[2] == '/')
@@ -97,6 +100,9 @@ int     cmd_execution(char **cmd)
             return 0;
         else if(pid == 0)
         {
+            
+            //add dup2 here
+            
             //directry part
             if (path_check(cmd[0]) && !chdir(cmd[0]))
             {
@@ -105,6 +111,16 @@ int     cmd_execution(char **cmd)
 		        ft_putstr_fd(" is a directory \n", 2);
                 exit(126);
             }
+            else if (!find_path(cmd) && path_check(cmd[0]))
+            {
+                if (access(cmd[0], F_OK))
+                {
+                    printf("Minishell: %s: No such file or directory\n", cmd[0]);
+                    exit(127);
+                }
+                
+            }
+            
             else if(find_path(cmd) && !path_check(cmd[0]))
             {
                 if (execve(global.path, cmd, global.env_copy) == -1)

@@ -4,17 +4,19 @@ void ft_execute(s_input *input)
 {
     if(!input)
         return;
-    else if (input->redirections)
+    else
+        check_heredoc(input);
+    if (input->redirections)
     {    
         redi_in(input);
     }
     else if(input->tok == AND)
         return(exec_and(input));
-    // else if(input->tok == OR)
-    //     return(exec_or(input));
+        // else if(input->tok == OR)
+        //     return(exec_or(input));
     else if(input->tok == PIPE)
         single_pipe(input);
-    else if(input->tok == STR)
+    if(input->tok == STR)
         return(exec_str(input));
     
 }
@@ -134,18 +136,32 @@ void exec_str(s_input *input)
 {
     int status;
     char *path;
+    int fd0;
 
+    // printf("line222 %p\n", input->redirections);
+    
     input->cmd = parsing_cmd(input->command);
     if(!input->cmd)
         return ;
 	if (input->cmd && !input->cmd[0])
 		(free(input->cmd), input->cmd = NULL);
-	if (input->cmd && input->cmd[0] && !builtins(input->cmd))
-	{
-        // find path execute child exit with status blablabla
-        //free path
-        return ;
-	}
+    if(input->redirections != NULL)
+    {
+            printf("after %s\n", input->redirections->file);
+        if (input->redirections->fd != -1)
+        {
+            fd0 = dup(STDIN_FILENO);
+            printf("err %d\n", dup2(STDIN_FILENO, input->redirections->fd));
+            
+            builtins(input->cmd);
+            dup2(fd0, STDIN_FILENO);
+            close(fd0);
+            close(input->redirections->fd);
+            return ;
+        }
+    }
+	builtins(input->cmd);
+	return ;
 }
 
 int    expand(s_input *input)
