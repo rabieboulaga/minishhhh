@@ -4,8 +4,8 @@ void    save_input_output(int *fd_input, int *fd_output)
 {
     *fd_input = dup(0);
     *fd_output = dup(1);
-	// close(*fd_input);
-	// close(*fd_output);
+	close(*fd_input);
+	close(*fd_output);
 
 }
 

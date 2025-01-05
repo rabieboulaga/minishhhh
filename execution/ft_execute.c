@@ -1,5 +1,7 @@
 #include "../headers/minishell.h"
 
+
+
 void ft_execute(s_input *input)
 {
     if(!input)
@@ -10,13 +12,22 @@ void ft_execute(s_input *input)
     {    
         redi_in(input);
     }
+    // if(input->redirections!= NULL)
+    // {
+    //     printf("kgkdjhfjksdfhsd\n");
+    //     if (input->redirections->fd != -1)
+    //     {
+    //         printf("helloooooo\n");
+    //     }
+    // exit(0);
+    // }
     else if(input->tok == AND)
         return(exec_and(input));
-        // else if(input->tok == OR)
-        //     return(exec_or(input));
+    // else if(input->tok == OR)
+    //     return(exec_or(input));
     else if(input->tok == PIPE)
         single_pipe(input);
-    if(input->tok == STR)
+    else if(input->tok == STR)
         return(exec_str(input));
     
 }
@@ -136,10 +147,9 @@ void exec_str(s_input *input)
 {
     int status;
     char *path;
-    int fd0;
+    // int fd0;
 
-    // printf("line222 %p\n", input->redirections);
-    
+    // fd0 = dup(STDIN_FILENO);
     input->cmd = parsing_cmd(input->command);
     if(!input->cmd)
         return ;
@@ -147,21 +157,26 @@ void exec_str(s_input *input)
 		(free(input->cmd), input->cmd = NULL);
     if(input->redirections != NULL)
     {
-            printf("after %s\n", input->redirections->file);
         if (input->redirections->fd != -1)
         {
-            fd0 = dup(STDIN_FILENO);
-            printf("err %d\n", dup2(STDIN_FILENO, input->redirections->fd));
-            
-            builtins(input->cmd);
-            dup2(fd0, STDIN_FILENO);
-            close(fd0);
+            dup2(input->redirections->fd, STDIN_FILENO);
             close(input->redirections->fd);
-            return ;
+            builtins(input->cmd);  
+            close(input->redirections->fd);  
+            // dup2( fd0  ,STDIN_FILENO);
+            // close(fd0);
+            return;
         }
     }
-	builtins(input->cmd);
-	return ;
+    
+
+    builtins(input->cmd);    
+    // if (input->cmd && input->cmd[0] && !builtins(input->cmd))
+	// {
+    //     // find path execute child exit with status blablabla
+    //     //free path
+    //     return ;
+	// }
 }
 
 int    expand(s_input *input)
