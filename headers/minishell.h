@@ -73,6 +73,23 @@ extern s_global global;
 
 
 
+
+
+void default_signal();
+
+char **parsing_cmd(char *str);
+void	delete_quotes(char **args);
+char	*new_cmd(char *s, int *flg);
+int	calc_len(char *s);
+void	should_expnd(int *flg);
+void expand_real(s_input *input);
+
+// void check_expand(s_input *input);
+char *check_expand(s_input *input);
+char **ft_split_diff(char *s, char c);
+// --------------
+
+
 char **parsing_cmd(char *str);
 void	delete_quotes(char **args);
 char	*new_cmd(char *s, int *flg);

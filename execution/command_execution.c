@@ -97,6 +97,7 @@ int     cmd_execution(char **cmd)
             return 0;
         else if(pid == 0)
         {
+            default_signal();
             //directry part
             if (path_check(cmd[0]) && !chdir(cmd[0]))
             {
