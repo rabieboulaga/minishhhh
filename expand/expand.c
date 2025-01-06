@@ -96,17 +96,6 @@
 //     return str;
 // }
 
-void expand_real(s_input *input)
-{
-    if(!input)
-        return ;
-    if (input->tok == STR)  
-        input->command = check_expand(input);
-    // printf("input command iss %s\n", input->command);
-    // exit(1);
-    expand_real(input->left);
-    expand_real(input->right);
-}
 
 // char *check_expand(s_input *input)
 // {
@@ -160,6 +149,17 @@ void expand_real(s_input *input)
 //     return return_str;
 // }
 
+void expand_real(s_input *input)
+{
+    if(!input)
+        return ;
+    if (input->tok == STR)  
+        input->command = check_expand(input);
+    // printf("input command iss %s\n", input->command);
+    // exit(1);
+    expand_real(input->left);
+    expand_real(input->right);
+}
 
 char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 {
@@ -263,17 +263,26 @@ static int	handle_env_var(char **word, int i)
 static int	handle_dollar_sign(char **word, int i, char quote)
 {
 	if ((*word)[i + 1] == '?')
+	{
+		printf("the ? entery\n");
 		return (handle_exit_status(word, i));
+	}
 	else if ((*word)[i + 1] >= '0' && (*word)[i + 1] <= '9')
+	{
+		printf("num enetery\n");
 		return (handle_numeric(word, i));
+	}
 	else if (is_legit((*word)[i + 1]) && quote != '\'')
+	{
+		printf("the  ccc is %c --> \n", (*word)[i + 1]);
 		return (handle_env_var(word, i));
+	}
 	return (1);
 }
 
 static char	get_quote_state(char c, char curr_quote)
 {
-	if ((c == '"' || c == '\'') && !curr_quote)
+	if ((c == '"' || c == '\'') && curr_quote == 0)
 		return (c);
 	else if (c == curr_quote)
 		return (0);
@@ -293,6 +302,14 @@ static char	*process_word(char *word)
 		return (NULL);
 	while (result[i])
 	{
+		if(result[i] == '$' && result[i + 1] == '$')
+		{
+			while(result[i+1] == '$')
+			{
+				// i++;
+				*result++;
+			}
+		}
 		quote = get_quote_state(result[i], quote);
 		if (result[i] == '$')
 			i += handle_dollar_sign(&result, i, quote);
