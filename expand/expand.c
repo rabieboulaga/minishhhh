@@ -352,6 +352,8 @@ char	*check_expand(char *input)
 	int		i;
 
 	words = ft_split(input, ' ');
+	result = join_words(words);
+	words = ft_split(result, '\t');
 	if (!words)
 		return (NULL);
 	i = 0;
