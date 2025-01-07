@@ -74,6 +74,9 @@ extern s_global global;
 
 
 
+char	*check_expand_herdoc(char *input);
+static char	*process_word_heroc(char *word);
+char	*ft_strjoin_three(char *s1, char *s2, char *s3);
 
 
 void default_signal();
@@ -86,7 +89,7 @@ void	should_expnd(int *flg);
 void expand_real(s_input *input);
 
 // void check_expand(s_input *input);
-char *check_expand(s_input *input);
+char *check_expand(char *input);
 char **ft_split_diff(char *s, char c);
 // --------------
 

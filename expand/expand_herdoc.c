@@ -149,29 +149,18 @@
 //     return return_str;
 // }
 
-void expand_real(s_input *input)
-{
-    if(!input)
-        return ;
-    if (input->tok == STR)  
-        input->command = check_expand(input->command);
-    // printf("input command iss %s\n", input->command);
-    // exit(1);
-    expand_real(input->left);
-    expand_real(input->right);
-}
 
-char	*ft_strjoin_three(char *s1, char *s2, char *s3)
-{
-	char	*temp;
-	char	*result;
+// char	*ft_strjoin_three(char *s1, char *s2, char *s3)
+// {
+// 	char	*temp;
+// 	char	*result;
 
-	temp = ft_strjoin(s1, s2);
-	if (!temp)
-		return (NULL);
-	result = ft_strjoin(temp, s3);
-	return (result);
-}
+// 	temp = ft_strjoin(s1, s2);
+// 	if (!temp)
+// 		return (NULL);
+// 	result = ft_strjoin(temp, s3);
+// 	return (result);
+// }
 
 static char	*replace_substring(char *str, int start, int len, char *new_str)
 {
@@ -290,7 +279,7 @@ static char	get_quote_state(char c, char curr_quote)
 	return (curr_quote);
 }
 
-static char	*process_word(char *word)
+static char	*process_word_herdoc(char *word)
 {
 	int		i;
 	char	quote;
@@ -313,7 +302,7 @@ static char	*process_word(char *word)
 		}
 		quote = get_quote_state(result[i], quote);
 		if (result[i] == '$')
-			i += handle_dollar_sign(&result, i, quote);
+			i += handle_dollar_sign(&result, i, 0);
 		else
 			i++;
 	}
@@ -344,7 +333,7 @@ static char	*join_words(char **words)
 	return (result);
 }
 
-char	*check_expand(char *input)
+char	*check_expand_herdoc(char *input)
 {
 	char	**words;
 	char	*result;
@@ -358,7 +347,7 @@ char	*check_expand(char *input)
 	while (words[i])
 	{
 		temp = words[i];
-		words[i] = process_word(words[i]);
+		words[i] = process_word_herdoc(words[i]);
 		i++;
 	}
 	result = join_words(words);
