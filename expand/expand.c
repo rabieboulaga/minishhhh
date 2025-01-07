@@ -194,6 +194,7 @@ static int	handle_exit_status(char **word, int i)
 	char	*before;
 	char	*after;
 
+	printf("exited  %d\n", global.exited);
 	exit_str = ft_itoa(global.exited);
 	if (!exit_str)
 		return (1);
@@ -264,17 +265,17 @@ static int	handle_dollar_sign(char **word, int i, char quote)
 {
 	if ((*word)[i + 1] == '?')
 	{
-		printf("the ? entery\n");
+		// printf("the ? entery\n");
 		return (handle_exit_status(word, i));
 	}
 	else if ((*word)[i + 1] >= '0' && (*word)[i + 1] <= '9')
 	{
-		printf("num enetery\n");
+		// printf("num enetery\n");
 		return (handle_numeric(word, i));
 	}
 	else if (is_legit((*word)[i + 1]) && quote != '\'')
 	{
-		printf("the  ccc is %c --> \n", (*word)[i + 1]);
+		// printf("the  ccc is %c --> \n", (*word)[i + 1]);
 		return (handle_env_var(word, i));
 	}
 	return (1);

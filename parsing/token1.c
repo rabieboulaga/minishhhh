@@ -17,7 +17,7 @@ int	check_rpr(char *s, int i)
             return (i);
         i++;
     }
-    printf("syntax error: unclosed parentheses");
+    printf("syntax error: unclosed parentheses\n");
     global.exited = 258;
     return (-1);
 }
@@ -98,7 +98,7 @@ int return_token_syntax(int tok,char *s, int *i,  int *par)
     }
     else if (tok == RPR && *i > *par)
     {
-        printf("syntax error: unexpected ')'");
+        printf("syntax error: unexpected ')'\n");
         global.exited = 258;
         return (0);
     }

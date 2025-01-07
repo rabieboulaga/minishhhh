@@ -77,7 +77,7 @@ int check_next_quote(char *s, char c)
 		i++;
 		s++;
 	}
-	// printf("syntax error: unclosed quotes");
+	printf("syntax error: unclosed quotes\n");
 	return -1;
 }
 

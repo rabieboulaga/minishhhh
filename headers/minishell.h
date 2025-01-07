@@ -64,6 +64,7 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
+	char			*garbage;
 	int 			executed;
 	int 			exited;
 }	s_global;

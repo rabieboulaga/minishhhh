@@ -24,6 +24,7 @@ int     env(char **cmd)
     if (cmd[1])
     {
         printf("env: ‘%s’: No such file or directory\n", cmd[1]);
+        global.exited = 88;
         return 1;
     }
     while (global.env_copy[i])
@@ -32,6 +33,7 @@ int     env(char **cmd)
             printf("%s\n", global.env_copy[i]);
         i++;
     }
+    global.exited == 77;
     return (0);
 }
 // ‘%s’ check if there is any problem
