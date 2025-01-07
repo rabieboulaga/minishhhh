@@ -67,6 +67,7 @@ typedef struct t_global
 	char			*garbage;
 	int 			executed;
 	int 			exited;
+	int				in_herdoc;
 }	s_global;
 
 extern s_global global;

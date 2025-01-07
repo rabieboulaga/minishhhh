@@ -21,6 +21,7 @@ int  open_heredoc(s_input *input, s_redir *tmp)
     fd = open("example.txt", O_CREAT | O_TRUNC | O_WRONLY, 0644);
     while (1)
     {
+        global.in_herdoc = 1;
         str = readline(">>");
         if(str)
             expand_str = check_expand_herdoc(str);
@@ -31,6 +32,7 @@ int  open_heredoc(s_input *input, s_redir *tmp)
         free(str);
         free(expand_str);
     }
+    global.in_herdoc = 0;
     tmp->fd = open("example.txt", O_RDONLY, 0644);
     close(fd);
     return 0;
