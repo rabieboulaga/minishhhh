@@ -49,13 +49,11 @@ typedef struct t_input
 	s_redir			*redirections;
 }   s_input;
 
-// typedef struct t_env
-// {
-// 	char 			*env;
-// 	char			*var;
-// 	char			*value;
-// 	struct t_env	*next;
-// }	s_env;
+typedef struct t_garbage
+{
+	char	*ptr;
+	struct t_garbage	*next;
+}	s_garbage;
 
 typedef struct t_global
 {
@@ -64,9 +62,9 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
-	char			*garbage;
+	s_garbage	*garbage;
 	int 			executed;
-	int 			exited;
+	int 			exited;	
 	int				in_herdoc;
 }	s_global;
 
