@@ -159,11 +159,7 @@ int main(int argc, char **argv, char **env)
     
     while(1)
     {
-<<<<<<< HEAD
         // printf("1-  %d\n", global.executed);
-=======
-        // printf("1-  %d\n", global.exited);
->>>>>>> 20b2afae700ec69c7642c2d715f1e5569c116878
         handle_signal();
         rl = readline("minishell --> ");
         if(!rl)
@@ -176,11 +172,7 @@ int main(int argc, char **argv, char **env)
         expand_real(input);
         ft_execute(input);
         global.executed = 0;
-<<<<<<< HEAD
         // printf("2-  %d\n", global.executed);
-=======
-        // printf("2-  %d\n", global.exited); 
->>>>>>> 20b2afae700ec69c7642c2d715f1e5569c116878
     }
 	return 0;
 }
