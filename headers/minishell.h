@@ -73,6 +73,10 @@ extern s_global global;
 
 
 
+int ft_isspace(char c);
+int ft_strlen_no_space(char *str);
+
+
 char	*check_expand_herdoc(char *input);
 static char	*process_word_heroc(char *word);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
@@ -98,6 +102,7 @@ void	delete_quotes(char **args);
 char	*new_cmd(char *s, int *flg);
 int	calc_len(char *s);
 void	should_expnd(int *flg);
+
 
 
 void exec_and(s_input *input);

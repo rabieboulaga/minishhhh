@@ -11,10 +11,10 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $@ $^ -lreadline
+	$(CC) -o $@ $^ -lreadline 
 
 %.o: %.c
-	$(CC) -c $< -o $@
+	$(CC) -c $< -o $@ 
 
 clean:
 	rm -f $(OBJ)

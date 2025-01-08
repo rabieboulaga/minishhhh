@@ -173,7 +173,7 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 	return (result);
 }
 
-static char	*replace_substring(char *str, int start, int len, char *new_str)
+char	*replace_substring(char *str, int start, int len, char *new_str)
 {
 	char	*before;
 	char	*after;
@@ -187,7 +187,7 @@ static char	*replace_substring(char *str, int start, int len, char *new_str)
 	return (result);
 }
 
-static int	handle_exit_status(char **word, int i)
+int	handle_exit_status(char **word, int i)
 {
 	char	*exit_str;
 	char	*new_word;
@@ -207,7 +207,7 @@ static int	handle_exit_status(char **word, int i)
 	return (2);
 }
 
-static int	handle_numeric(char **word, int i)
+int	handle_numeric(char **word, int i)
 {
 	char	*new_word;
 
@@ -218,11 +218,12 @@ static int	handle_numeric(char **word, int i)
 	return (2);
 }
 
-static char	*get_env_value(char *name)
+char	*get_env_value(char *name)
 {
 	int		i;
 	char	*value;
-
+	char *save;
+	int		j = 0;
 	i = 0;
 	while (global.env_copy[i])
 	{
@@ -230,14 +231,36 @@ static char	*get_env_value(char *name)
 			global.env_copy[i][ft_strlen(name)] == '=')
 		{
 			value = ft_strdup(ft_strchr(global.env_copy[i], '=') + 1);
-			return (value);
+			save = malloc(ft_strlen_no_space(value)+1);
+			while(*value != '\0')
+			{
+				if(ft_isspace(*value) == 1)
+				{
+					save[j] = *value;
+					j++;
+					*value++;
+				}
+				else if(ft_isspace(*value) == 0)
+				{
+					save[j] = ' ';
+					*value++;
+					while(ft_isspace(*value) == 0)
+					{
+						*value++;
+					}
+					j++;
+				}
+			}
+			save[j] = '\0';
+			return (save);
 		}
 		i++;
 	}
+	// return NULL;
 	return (ft_strdup(""));
 }
 
-static int	handle_env_var(char **word, int i)
+int	handle_env_var(char **word, int i)
 {
 	int		len;
 	char	*var_name;
@@ -257,11 +280,14 @@ static int	handle_env_var(char **word, int i)
 	new_word = replace_substring(*word, i, len, var_value);
 	if (!new_word)
 		return (1);
+	// printf("---> %s\n", new_word);
 	*word = new_word;
+
+	// exit(1);
 	return (len);
 }
 
-static int	handle_dollar_sign(char **word, int i, char quote)
+int	handle_dollar_sign(char **word, int i, char quote)
 {
 	if ((*word)[i + 1] == '?')
 	{
@@ -276,12 +302,13 @@ static int	handle_dollar_sign(char **word, int i, char quote)
 	else if (is_legit((*word)[i + 1]) && quote != '\'')
 	{
 		// printf("the  ccc is %c --> \n", (*word)[i + 1]);
+		// exit(1);
 		return (handle_env_var(word, i));
 	}
 	return (1);
 }
 
-static char	get_quote_state(char c, char curr_quote)
+char	get_quote_state(char c, char curr_quote)
 {
 	if ((c == '"' || c == '\'') && curr_quote == 0)
 		return (c);
@@ -290,7 +317,7 @@ static char	get_quote_state(char c, char curr_quote)
 	return (curr_quote);
 }
 
-static char	*process_word(char *word)
+char	*process_word(char *word)
 {
 	int		i;
 	char	quote;
@@ -352,17 +379,28 @@ char	*check_expand(char *input)
 	int		i;
 
 	words = ft_split(input, ' ');
-	result = join_words(words);
-	words = ft_split(result, '\t');
 	if (!words)
 		return (NULL);
 	i = 0;
 	while (words[i])
 	{
 		temp = words[i];
+		// printf("Im Gonna processe thiis %s\n", words[i]);
 		words[i] = process_word(words[i]);
+		// printf("words[i] %s --> \n", words[i]);
+		// printf("iiii -> %d\n", i);
 		i++;
 	}
+	// i = 0;
+	// while(words[i])
+	// {
+	// 	printf("words[i] %s --> \n", words[i]);
+	// 	printf("iiii -> %d\n", i);
+	// 	i++;
+	// }
+	// exit(1);
 	result = join_words(words);
+	// printf("%s\n", result);
+	// exit(1);
 	return (result);
 }
