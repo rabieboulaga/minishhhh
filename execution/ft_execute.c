@@ -145,15 +145,15 @@ void   fill_between_quote_2(char **str, char *s, int *i)
 
 void exec_str(s_input *input)
 {
-    int status;
-    char *path;
     // int fd0;
 
     // fd0 = dup(STDIN_FILENO);
     input->cmd = parsing_cmd(input->command);
     if(!input->cmd)
+    {
         return ;
-	if (input->cmd && !input->cmd[0])
+    }
+    if (input->cmd && !input->cmd[0])
 		(free(input->cmd), input->cmd = NULL);
     if(input->redirections != NULL)
     {
@@ -168,22 +168,11 @@ void exec_str(s_input *input)
             return;
         }
     }
-    
-
-
     builtins(input->cmd);
-    // if (input->cmd && input->cmd[0] && !builtins(input->cmd))
-	// {
-    //     // find path execute child exit with status blablabla
-    //     //free path
-    //     return ;
-	// }
 }
 
 int    expand(s_input *input)
 {
-    int flag;
-    s_redir *redir;
     input->cmd = parsing_cmd(input->command);
     if(!input->cmd)
         return(0);
@@ -269,7 +258,7 @@ char *expand_var(char *str, int *i)
     char *s;
 
     save = *i;
-    if (s[save] == '?')
+    if (str[save] == '?')
     {
         (*i)++;
         ft_itoa(global.exited);
@@ -281,11 +270,11 @@ char *expand_var(char *str, int *i)
     // v = ft_getenv(s);
     // printf("--> %s\n", v);
     *i += save;
-    if (!v)
-    {
-        free(s);
-        return (NULL);
-    }
+    // if (!v)
+    // {
+    //     free(s);
+    //     return (NULL);
+    // }
     free(s);
     return (v);
 }

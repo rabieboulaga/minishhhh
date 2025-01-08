@@ -75,7 +75,7 @@ extern s_global global;
 
 
 char	*check_expand_herdoc(char *input);
-static char	*process_word_heroc(char *word);
+// static char	*process_word_heroc(char *word);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
 
 
@@ -159,7 +159,7 @@ void	fill_between_quote_2_help(char **str, int *i, char *s);
 void    ft_change_command(char *command, char *str);
 void	change_val(char **keep, char *s, int *i);
 void    fill_between_quote_1(char **str, char *s, int *i);
-int    builtins(char **cmd);
+void    builtins(char **cmd);
 int		cd(char **cmd);
 void    free_list(char **str);
 int     help(char **cmd);
