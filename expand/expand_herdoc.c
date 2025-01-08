@@ -183,7 +183,7 @@ static int	handle_exit_status(char **word, int i)
 	char	*before;
 	char	*after;
 
-	printf("exited  %d\n", global.exited);
+	// printf("exited  %d\n", global.exited);
 	exit_str = ft_itoa(global.exited);
 	if (!exit_str)
 		return (1);
