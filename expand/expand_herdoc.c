@@ -297,7 +297,7 @@ static char	*process_word_herdoc(char *word)
 			while(result[i+1] == '$')
 			{
 				// i++;
-				*result++;
+				result++;
 			}
 		}
 		quote = get_quote_state(result[i], quote);
@@ -313,7 +313,7 @@ static char	*join_words(char **words)
 {
 	int		i;
 	char	*result;
-	char	*temp;
+	// char	*temp;
 
 	i = 0;
 	result = ft_strdup("");
@@ -321,11 +321,11 @@ static char	*join_words(char **words)
 		return (NULL);
 	while (words[i])
 	{
-		temp = result;
+		// temp = result;
 		result = ft_strjoin(result, words[i]);
 		if (words[i + 1])
 		{
-			temp = result;
+			// temp = result;
 			result = ft_strjoin(result, " ");
 		}
 		i++;
@@ -337,7 +337,7 @@ char	*check_expand_herdoc(char *input)
 {
 	char	**words;
 	char	*result;
-	char	*temp;
+	// char	*temp;
 	int		i;
 
 	words = ft_split(input, ' ');
@@ -346,7 +346,7 @@ char	*check_expand_herdoc(char *input)
 	i = 0;
 	while (words[i])
 	{
-		temp = words[i];
+		// temp = words[i];
 		words[i] = process_word_herdoc(words[i]);
 		i++;
 	}
