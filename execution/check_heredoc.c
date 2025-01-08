@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 23:08:37 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/08 18:30:48 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:21:08 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ int  open_heredoc(s_redir *tmp)
             break;
         ft_putstr_fd(expand_str, fd);
         ft_putstr_fd("\n", fd);
-        free(str);
-        free(expand_str);
+        if (str)
+        {
+            free(str);
+            free(expand_str);
+        }
     }
     global.in_herdoc = 0;
     tmp->fd = open("example.txt", O_RDONLY, 0644);
