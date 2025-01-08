@@ -170,7 +170,8 @@ void exec_str(s_input *input)
     }
     
 
-    builtins(input->cmd);    
+
+    builtins(input->cmd);
     // if (input->cmd && input->cmd[0] && !builtins(input->cmd))
 	// {
     //     // find path execute child exit with status blablabla

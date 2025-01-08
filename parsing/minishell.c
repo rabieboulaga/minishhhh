@@ -41,13 +41,14 @@ int main(int argc, char **argv, char **env)
     int fd_output;
 	(void)argc;
 	(void)argv;
-    int i = 0;
+    int i = 0;  
     s_input *input;
 
     ft_initialize(env, &fd_input, &fd_output); 
+    
     while(1)
     {
-        printf("1-  %d\n", global.executed);
+        // printf("1-  %d\n", global.executed);
         handle_signal();
         rl = readline("minishell --> ");
         if(!rl)
@@ -60,7 +61,7 @@ int main(int argc, char **argv, char **env)
         expand_real(input);
         ft_execute(input);
         global.executed = 0;
-        printf("2-  %d\n", global.executed);
+        // printf("2-  %d\n", global.executed);
     }
 	return 0;
 }

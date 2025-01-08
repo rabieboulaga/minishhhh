@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/02 12:04:20 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/08 03:32:55 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int check_variable(char *var)
             //     return 1;
             // }
             free(global.env_copy[i]);
-            global.env_copy[i]= ft_strdup(var);
+            global.env_copy[i] = ft_strdup(var);
             return 1;
         }
         else if (ft_ncmp(global.env_copy[i], var, len) == 0 && var[len + 1] == '\0')

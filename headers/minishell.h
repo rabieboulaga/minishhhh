@@ -189,6 +189,7 @@ int     redi_in(s_input *input);
 int     check_heredoc(s_input *input);
 
 
+int ft_exited(int d, int exit);
 
 void	delete_quotes(char **args);
 char	*new_cmd(char *s, int *flg);
