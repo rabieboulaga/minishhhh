@@ -49,3 +49,30 @@ s_input	*node_creation_cmd(char *s, s_redir *redir, s_token tok, int token_flag)
 	node->right = NULL;
 	return (node);
 }
+
+int ft_isspace(char c)
+{
+	if(c ==  '\t' || c == '\n' || c == '\v' || c == '\f' 
+		|| c == '\r')
+		return(0);
+	return (1);
+}
+
+int ft_strlen_no_space(char *str)
+{
+	int i = 0;
+	int j = 0;
+	while(str[i] != '\0')
+	{
+		if(ft_isspace(str[i]) == 0 && ft_isspace(str[i+1])==0)
+			i++;
+		else if(ft_isspace(str[i]) == 0 && str[i+1] == '\0')
+			i++;
+		else
+		{
+			i++;
+			j++;
+		}
+	}
+	return (j);
+}

@@ -2,6 +2,100 @@
 
 s_global global; 
  
+// static void	sig_handler(int signum)
+// {
+//     if(signum == SIGINT && !global.executed)
+//     {
+//         write(1, "\n", 1);
+//         rl_on_new_line();
+//         rl_replace_line("", 0);
+//         rl_redisplay();
+//         global.exited = 1;
+//     }
+//     else{
+//             write(1, "\n", 1);
+//             rl_on_new_line();
+//             rl_replace_line("", 0);
+//     }
+
+// }
+
+// static void	sig_handler_v1(int signum)
+// {
+//     if(signum == SIGQUIT && !global.executed)
+//     {
+//         write(1, "\n", 1);
+//         rl_on_new_line();
+//         rl_replace_line("", 0);
+//         rl_redisplay();
+//         global.exited = 1;
+//     }
+//     else{
+//             write(1, "QUIT\n", 5);
+//             rl_on_new_line();
+//             rl_replace_line("", 0);
+//     }
+
+// }
+
+
+// void default_signal()
+// {
+//     rl_catch_signals = 0;
+//     if(signal(SIGINT, sig_handler) == SIG_ERR
+//         || signal(SIGQUIT, sig_handler_v1) == SIG_ERR
+// 		|| signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+//         global.exited = 1;
+// }
+
+// void default_signal()
+// {
+//     if(signal(SIGINT, sig_handler) == SIG_ERR
+//         || signal(SIGQUIT, sig_handler) == SIG_ERR
+// 		|| signal(SIGTSTP, SIG_DFL) == SIG_ERR)
+//     {
+//         global.exited = 1;
+//     }
+// }
+
+// static void	sig_handler(int signum)
+// {
+//     if(signum == SIGINT && !global.executed)
+//     {
+//         write(1, "\n", 1);
+//         rl_on_new_line();
+//         rl_replace_line("", 0);
+//         rl_redisplay();
+//         global.exited = 1;
+//     }
+//     else{
+//             write(1, "QUIT", 4);
+//             rl_on_new_line();
+//             rl_replace_line("", 0);
+//     }
+
+// }
+
+// void handle_signal()
+// {
+//     rl_catch_signals = 0;
+//     if(signal(SIGINT, sig_handler) == SIG_ERR
+//         || signal(SIGQUIT, SIG_IGN) == SIG_ERR
+// 		|| signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+//         global.exited = 1;
+// }
+
+// void default_signal()
+// {
+//     if(signal(SIGINT, sig_handler) == SIG_ERR
+//         || signal(SIGQUIT, sig_handler) == SIG_ERR
+// 		|| signal(SIGTSTP, SIG_DFL) == SIG_ERR)
+//     {
+//         global.exited = 1;
+//     }
+// }
+
+
 static void	sig_handler(int signum)
 {
     (void)signum;
@@ -15,20 +109,37 @@ static void	sig_handler(int signum)
     }
 }
 
+void handle_quit(int signum)
+{
+    // printf("---> %d and in_herdoc %d\n", global.executed, global.in_herdoc);
+    if(!global.executed == 0)
+    {
+        // ft_putstr_fd("Quit (core dumped)\n", 2);
+        signal(SIGQUIT, SIG_IGN);
+    }
+    if(global.executed == 1)
+    {
+        // printf("asdsadasdas");
+        // printf("glooo is %d\n", global.in_herdoc);
+        if(global.in_herdoc == 0)
+        {
+            // printf("QUIIII");
+            ft_putstr_fd("Quit (core dumped)\n", 2);
+        }
+    }
+}
+
 void handle_signal()
 {
     rl_catch_signals = 0;
     if(signal(SIGINT, sig_handler) == SIG_ERR
-        || signal(SIGQUIT, SIG_IGN) == SIG_ERR
-		|| signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+        || signal(SIGQUIT, handle_quit) == SIG_ERR)
         global.exited = 1;
 }
-
 void default_signal()
 {
     if(signal(SIGINT, sig_handler) == SIG_ERR
-        || signal(SIGQUIT, SIG_DFL) == SIG_ERR
-		|| signal(SIGTSTP, SIG_DFL) == SIG_ERR)
+        || signal(SIGQUIT, handle_quit) == SIG_ERR)
     {
         global.exited = 1;
     }
@@ -48,7 +159,11 @@ int main(int argc, char **argv, char **env)
     
     while(1)
     {
+<<<<<<< HEAD
         // printf("1-  %d\n", global.executed);
+=======
+        // printf("1-  %d\n", global.exited);
+>>>>>>> 20b2afae700ec69c7642c2d715f1e5569c116878
         handle_signal();
         rl = readline("minishell --> ");
         if(!rl)
@@ -61,7 +176,19 @@ int main(int argc, char **argv, char **env)
         expand_real(input);
         ft_execute(input);
         global.executed = 0;
+<<<<<<< HEAD
         // printf("2-  %d\n", global.executed);
+=======
+        // printf("2-  %d\n", global.exited); 
+>>>>>>> 20b2afae700ec69c7642c2d715f1e5569c116878
     }
 	return 0;
 }
+
+// int main()
+// {
+//     char *str = "      STR";
+//     char **hello = ft_split(str, ' ');
+//     printf("%s\n", hello[0]);
+//     // printf("%s\n", str[1]);
+// }

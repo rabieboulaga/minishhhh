@@ -13,10 +13,14 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $@ $^ -lreadline
+	$(CC) -o $@ $^ -lreadline 
 
 %.o: %.c
+<<<<<<< HEAD
 	$(CC)  -c $< -o $@
+=======
+	$(CC) -c $< -o $@ 
+>>>>>>> 20b2afae700ec69c7642c2d715f1e5569c116878
 
 clean:
 	rm -f $(OBJ)

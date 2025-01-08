@@ -49,13 +49,11 @@ typedef struct t_input
 	s_redir			*redirections;
 }   s_input;
 
-// typedef struct t_env
-// {
-// 	char 			*env;
-// 	char			*var;
-// 	char			*value;
-// 	struct t_env	*next;
-// }	s_env;
+typedef struct t_garbage
+{
+	char	*ptr;
+	struct t_garbage	*next;
+}	s_garbage;
 
 typedef struct t_global
 {
@@ -64,14 +62,19 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
-	char			*garbage;
+	s_garbage	*garbage;
 	int 			executed;
-	int 			exited;
+	int 			exited;	
+	int				in_herdoc;
 }	s_global;
 
 extern s_global global;
 
 
+
+
+int ft_isspace(char c);
+int ft_strlen_no_space(char *str);
 
 
 char	*check_expand_herdoc(char *input);
@@ -99,6 +102,7 @@ void	delete_quotes(char **args);
 char	*new_cmd(char *s, int *flg);
 int	calc_len(char *s);
 void	should_expnd(int *flg);
+
 
 
 void exec_and(s_input *input);

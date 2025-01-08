@@ -61,6 +61,7 @@ void    ft_initialize(char **env, int *fd_input, int *fd_output)
 {
     global.executed = 0;
     global.exited = 0;
+	global.in_herdoc = 0;
     save_input_output(fd_input, fd_output);
     if(global.exited == 0)
         ft_initialize_env(env);
