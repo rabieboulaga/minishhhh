@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:47:51 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/12/29 21:17:07 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 23:22:20 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int     single_pipe(s_input *input)
     pid_t left = fork();
     if (left == 0)
     {
+        handle_signals(IN_CHILD);
         close(pipefd[0]);
         dup2(pipefd[1], STDOUT_FILENO);
         close(pipefd[1]);
@@ -38,6 +39,7 @@ int     single_pipe(s_input *input)
     pid_t right = fork();
     if (right == 0)
     {
+        handle_signals(IN_CHILD);
         close(pipefd[1]);
         dup2(pipefd[0], STDIN_FILENO);
         close(pipefd[0]);

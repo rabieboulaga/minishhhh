@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:24:54 by rabie             #+#    #+#             */
-/*   Updated: 2025/01/09 01:32:53 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 23:23:00 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 // lay next .. gdb
 // backtrace  
 int    builtins(char **cmd)
-{   
+{ 
+    handle_signals(IN_PARENT);
     if (cmd == NULL)
         return(ft_exited(0, 0));  
     if (ft_ncmp("echo", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)

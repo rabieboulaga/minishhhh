@@ -11,7 +11,7 @@ int check_beggining(char *str)
     if(tok == OR || tok == AND || tok == PIPE || tok == RPR)
     {
         printf("Error");
-        global.exited = 258;
+        global.exited = 2;
         return(0);
     }
     return(1);
@@ -35,12 +35,67 @@ s_input	*tokenizer(char *str)
     str = NULL;
 	return (input);
 }
+static int	handle_double_quotes(const char *str, int *i)
+{
+	(*i)++;
+	while (str[*i])
+	{
+		if (str[*i] == '"')
+			return (0);
+		(*i)++;
+	}
+	return (1);
+}
 
+static int	handle_single_quotes(const char *str, int *i)
+{
+	(*i)++;
+	while (str[*i])
+	{
+		if (str[*i] == '\'')
+			return (0);
+		(*i)++;
+	}
+	return (2);
+}
+
+int	check_unclosed_quote(char *str)
+{
+	int	i;
+	int	ret;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			ret = handle_double_quotes(str, &i);
+			if (ret)
+				return (ret);
+		}
+		else if (str[i] == '\'')
+		{
+			ret = handle_single_quotes(str, &i);
+			if (ret)
+				return (ret);
+		}
+		i++;
+	}
+	return (0);
+}
 s_input *ft_parse(char *rl)
 {
     char *str;
     s_input *input;
 
+    if (check_unclosed_quote(rl))
+    {
+        ft_putstr_fd("unclosed quotes\n", 2);
+        global.exited = 2;
+        return NULL;
+    }
     str = ft_strtrim(rl, " \t\n\v\f\r");
     free(rl);
     if(!str || check_beggining(str) == 0)

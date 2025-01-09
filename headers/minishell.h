@@ -12,6 +12,10 @@
 #include <limits.h>
 #include <sys/wait.h>
 
+# define IN_CHILD 6 
+# define IN_PARENT 7
+# define IN_HEREDOC 8
+# define BEFORE_READLINE 9
 
 typedef enum t_token
 {
@@ -62,15 +66,12 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
-<<<<<<< HEAD
 	int 			test;
 	s_garbage	*garbage;
-=======
->>>>>>> fc9f81a343759a3dd98b191882ed74639063dd48
 	int 			executed;
 	int 			exited;	
 	int				in_herdoc;
-	s_garbage	*garbage;
+	// s_garbage	*garbage;
 }	s_global;
 
 extern s_global global;
@@ -208,8 +209,10 @@ void	should_expnd(int *flg);
 int	calc_len(char *s);
 int  open_heredoc(s_redir *tmp);
 
-
-
+//
+void	handle_signals(int sig);
+// static void	handle_heredoc(int sig);
+// static void	handle_interrupt(int sig);
 //-----------------------------
 // int     check_in(s_input *input);
 

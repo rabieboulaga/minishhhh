@@ -95,7 +95,48 @@ s_global global;
 //     }
 // }
 
+static void	handle_interrupt(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	global.status = 130;
+}
 
+static void	handle_heredoc(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	close(STDIN_FILENO);
+	global.status = 130;
+	exit(130);
+}
+
+void	handle_signals(int sig)
+{
+	if (sig == IN_HEREDOC)
+	{
+		signal(SIGINT, handle_heredoc);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sig == IN_CHILD)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	if (sig == IN_PARENT)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sig == BEFORE_READLINE)
+	{
+		signal(SIGINT, handle_interrupt);
+		signal(SIGQUIT, SIG_IGN);
+	}
+}
 void	sig_handler(int signum)
 {
     (void)signum;
@@ -130,13 +171,13 @@ void handle_quit(int signum)
     }
 }
 
-void handle_signal()
-{
-    rl_catch_signals = 0;
-    if(signal(SIGINT, sig_handler) == SIG_ERR
-        || signal(SIGQUIT, handle_quit) == SIG_ERR)
-        global.exited = 1;
-}
+// void handle_signal()
+// {
+//     rl_catch_signals = 0;
+//     if(signal(SIGINT, sig_handler) == SIG_ERR
+//         || signal(SIGQUIT, handle_quit) == SIG_ERR)
+//         global.exited = 1;
+// }
 void default_signal()
 {
     if(signal(SIGINT, sig_handler) == SIG_ERR
@@ -162,8 +203,10 @@ int main(int argc, char **argv, char **env)
     {
         // printf("1-  %d\n", global.executed);
         // printf("1-  %d\n", global.exited);
-        handle_signal();
+        // handle_signal();
+        handle_signals(BEFORE_READLINE);
         rl = readline("minishell --> ");
+        handle_signals(IN_PARENT);
         if(!rl)
         {
             break;
