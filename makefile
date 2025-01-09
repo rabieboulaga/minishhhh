@@ -1,6 +1,6 @@
 CC = cc 
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 # SRC = $(wildcard ./parsing/*.c) $(wildcard ./libft_torename/*.c)
 
@@ -16,7 +16,8 @@ $(NAME): $(OBJ)
 	$(CC) -o $@ $^ -lreadline 
 
 %.o: %.c
-	$(CC)  -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
 	rm -f $(OBJ)
 

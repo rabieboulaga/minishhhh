@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:04:06 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/08 03:40:09 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:08:45 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int ft_exited(int d, int exit)
     global.exited = exit;
     return (d);
 }
-int		cd(char **cmd)
+
+int arg_numbers(char **cmd)
 {
-    char *tmp;
     int i = 0;
 
     while (cmd[i])
@@ -45,8 +45,17 @@ int		cd(char **cmd)
     if (i > 2)
     {
         printf("minishell: cd: too many arguments\n");
-        return ft_exited(1, 1);
+        return 1;
     }
+    return 0;
+} 
+
+int		cd(char **cmd)
+{
+    char *tmp;
+    
+    if(arg_numbers(cmd))
+        return(ft_exited(1, 1)); 
     else if (!cmd[1])
     {
         tmp = getenv("HOME");

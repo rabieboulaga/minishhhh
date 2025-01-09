@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:25:47 by rabie             #+#    #+#             */
-/*   Updated: 2025/01/08 23:22:32 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:30:17 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int check_option(char *str)
 }
 //0 mean with newline
 //1 mean without newline
-void    echo(char **cmd)
+int    echo(char **cmd)
 {
     int newline;
     int j;
@@ -55,5 +55,6 @@ void    echo(char **cmd)
     }    
     if(newline == 0)
         printf("\n");
+    return (ft_exited(0, 0));
 }
 
