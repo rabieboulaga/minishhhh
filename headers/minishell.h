@@ -62,10 +62,10 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
-	s_garbage	*garbage;
 	int 			executed;
 	int 			exited;	
 	int				in_herdoc;
+	s_garbage	*garbage;
 }	s_global;
 
 extern s_global global;
