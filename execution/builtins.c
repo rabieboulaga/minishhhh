@@ -32,7 +32,7 @@ int    builtins(char **cmd)
         export(cmd);
     else
         cmd_execution(cmd);
-    free_list(cmd);
+    // free_list(cmd);
     return 0;
 }
 

@@ -146,42 +146,7 @@ void default_signal()
     }
 }
 
-// int main(int argc, char **argv, char **env)
-// {
-//     char *rl;
-//     int fd_input;
-//     int fd_output;
-// 	(void)argc;
-// 	(void)argv;
-//     // int i = 0;  
-//     s_input *input;
-
-//     ft_initialize(env, &fd_input, &fd_output); 
-    
-//     while(1)
-//     {
-//         // printf("1-  %d\n", global.executed);
-//         // printf("1-  %d\n", global.exited);
-//         handle_signal();
-//         rl = readline("minishell --> ");
-//         if(!rl)
-//         {
-//             break;
-//         }
-//         global.executed = 1;
-//         add_history(rl);
-//         input = ft_parse(rl);
-//         expand_real(input);
-//         ft_execute(input);
-//         global.executed = 0;
-//         // printf("2-  %d\n", global.executed);
-//         // printf("2-  %d\n", global.exited); 
-//     }
-// 	return 0;
-// }
-
-
-s_garbage *ft_lstnew_garbage(char *ptr)
+s_garbage *ft_lstnew_garbage(void *ptr)
 {
     s_garbage *new_node = malloc(sizeof(s_garbage));
     if (!new_node)
@@ -224,14 +189,60 @@ void free_garbage(void)
     global.garbage = NULL;  
 }
 
-int main()
+void *ft_malloc(int size)
 {
-    char *str = malloc(15);
-    char *str1 = malloc(12);
+    void *str;
+    str = malloc(size);
+    if(!str)
+        return NULL;
     ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(str));
-    ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(str1));
-    free_garbage();
+    return(str);
 }
+
+int main(int argc, char **argv, char **env)
+{
+    char *rl;
+    int fd_input;
+    int fd_output;
+	(void)argc;
+	(void)argv;
+    // int i = 0;  
+    s_input *input;
+
+    ft_initialize(env, &fd_input, &fd_output); 
+    
+    while(1)
+    {
+        // printf("1-  %d\n", global.executed);
+        // printf("1-  %d\n", global.exited);
+        handle_signal();
+        rl = readline("minishell --> ");
+        if(!rl)
+        {
+            break;
+        }
+        global.executed = 1;
+        add_history(rl);
+        input = ft_parse(rl);
+        expand_real(input);
+        ft_execute(input);
+        global.executed = 0;
+        // printf("2-  %d\n", global.executed);
+        // printf("2-  %d\n", global.exited); 
+    }
+    free_garbage();
+	return 0;
+}
+
+
+// int main()
+// {
+//     char *str = (char *)ft_malloc(15);
+//     char *str1 = (char *)ft_malloc(12);
+//     (void) str;
+//     (void) str1;
+//     free_garbage();
+// }
 
 
 // int main()

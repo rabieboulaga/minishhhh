@@ -48,11 +48,11 @@ int  open_heredoc(s_redir *tmp)
             break;
         ft_putstr_fd(expand_str, fd);
         ft_putstr_fd("\n", fd);
-        if (str)
-        {
-            free(str);
-            free(expand_str);
-        }
+        // if (str)
+        // {
+        //     free(str);
+        //     free(expand_str);
+        // }
     }
     global.in_herdoc = 0;
     tmp->fd = open("example.txt", O_RDONLY, 0644);

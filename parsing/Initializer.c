@@ -45,7 +45,7 @@ void ft_initialize_env(char **env)
     int i = 0;
     while(env[i])
         i++;
-    global.env_copy = malloc((i + 1) * sizeof(char *));
+    global.env_copy = ft_malloc((i + 1) * sizeof(char *));
     if(!global.env_copy)
         return;
     i = 0;

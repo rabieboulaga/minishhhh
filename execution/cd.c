@@ -26,7 +26,7 @@ void    pwd_update()
     {    
         i++;
     }
-    free(global.env_copy[i]);    
+    // free(global.env_copy[i]);    
     getcwd(buff, sizeof(buff));
     global.env_copy[i] = ft_strjoin("OLDPWD=", buff);
 }

@@ -34,7 +34,7 @@ s_input	*node_creation_cmd(char *s, s_redir *redir, s_token tok, int token_flag)
 {
 	s_input	*node;
 
-	node = malloc(sizeof(s_input));
+	node = (s_input *)ft_malloc(sizeof(s_input));
 	if (!node)
 	{
 		printf("failes\n");

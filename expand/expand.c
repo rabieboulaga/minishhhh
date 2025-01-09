@@ -231,7 +231,7 @@ char	*get_env_value(char *name)
 			global.env_copy[i][ft_strlen(name)] == '=')
 		{
 			value = ft_strdup(ft_strchr(global.env_copy[i], '=') + 1);
-			save = malloc(ft_strlen_no_space(value)+1);
+			save = (char *)ft_malloc(ft_strlen_no_space(value)+1);
 			while(*value != '\0')
 			{
 				if(ft_isspace(*value) == 1)

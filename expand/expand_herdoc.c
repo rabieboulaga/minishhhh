@@ -207,24 +207,24 @@ static int	handle_numeric(char **word, int i)
 	return (2);
 }
 
-static char	*get_env_value(char *name)
-{
-	int		i;
-	char	*value;
+// static char	*get_env_value(char *name)
+// {
+// 	int		i;
+// 	char	*value;
 
-	i = 0;
-	while (global.env_copy[i])
-	{
-		if (!ft_strncmp(name, global.env_copy[i], ft_strlen(name)) &&
-			global.env_copy[i][ft_strlen(name)] == '=')
-		{
-			value = ft_strdup(ft_strchr(global.env_copy[i], '=') + 1);
-			return (value);
-		}
-		i++;
-	}
-	return (ft_strdup(""));
-}
+// 	i = 0;
+// 	while (global.env_copy[i])
+// 	{
+// 		if (!ft_strncmp(name, global.env_copy[i], ft_strlen(name)) &&
+// 			global.env_copy[i][ft_strlen(name)] == '=')
+// 		{
+// 			value = ft_strdup(ft_strchr(global.env_copy[i], '=') + 1);
+// 			return (value);
+// 		}
+// 		i++;
+// 	}
+// 	return (ft_strdup(""));
+// }
 
 static int	handle_env_var(char **word, int i)
 {

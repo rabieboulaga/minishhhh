@@ -62,11 +62,7 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
-<<<<<<< HEAD
 	int 			test;
-	s_garbage	*garbage;
-=======
->>>>>>> fc9f81a343759a3dd98b191882ed74639063dd48
 	int 			executed;
 	int 			exited;	
 	int				in_herdoc;
@@ -75,6 +71,9 @@ typedef struct t_global
 
 extern s_global global;
 
+s_garbage *ft_lstnew_garbage(void *ptr);
+void ft_lstadd_back_garbage(s_garbage **lst, s_garbage *new);
+void *ft_malloc(int size);
 
 
 
@@ -164,6 +163,7 @@ int look_for_1_quote(char *str, int *i, char c);
 int length_val(char *str, int *i);
 char *ft_getenv(char *s);
 int is_legit(int c);
+char	*get_env_value(char *name);
 char *parsing_redirection(s_redir *redir, char *str ,int *flag);
 void   fill_between_quote_2(char **str, char *s, int *i);
 void	fill_between_quote_2_help(char **str, int *i, char *s);

@@ -20,12 +20,12 @@ void	*ft_calloc(size_t number, size_t size)
 	max_sizet = number * size;
 	if (number == 0 || size == 0)
 	{
-		ptr = malloc(0);
+		ptr = (void *)ft_malloc(0);
 		return (ptr);
 	}
 	if (max_sizet / number != size)
 		return (NULL);
-	ptr = (void *)malloc(number * size);
+	ptr = (void *)ft_malloc(number * size);
 	if (!ptr)
 		return (NULL);
 	ft_bzero(ptr, (number * size));

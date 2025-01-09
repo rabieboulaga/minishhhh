@@ -57,7 +57,7 @@ int     unset(char **cmd)
         {        
             if(env_cmp(cmd[i], global.env_copy[j])) 
             {
-                free(global.env_copy[j]);
+                // free(global.env_copy[j]);
                 global.env_copy[j] = NULL;
                 while (global.env_copy[j + 1])
                 {

@@ -33,6 +33,7 @@ void    copying_II(char *v)
     while (global.env_copy[i])
         i++;
     tmp = malloc((i + 2) * sizeof(char *));
+    ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(tmp));
     i = 0;
     while (global.env_copy[i])
     {
@@ -41,7 +42,7 @@ void    copying_II(char *v)
     }
     tmp[i++] = ft_strdup(v);
     tmp[i] = NULL;
-    free(global.env_copy);
+    // free(global.env_copy);
     global.env_copy = tmp;
 }
 
@@ -89,7 +90,7 @@ int check_variable(char *var)
 
             //     return 1;
             // }
-            free(global.env_copy[i]);
+            // free(global.env_copy[i]);
             global.env_copy[i] = ft_strdup(var);
             return 1;
         }

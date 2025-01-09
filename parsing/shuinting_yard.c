@@ -72,13 +72,13 @@ void	remove_top(s_input **tok_s)
 {
 	if (!(*tok_s)->right)
 	{
-		free(*tok_s);
+		// free(*tok_s);
 		*tok_s = NULL;
 	}
 	else
 	{
 		*tok_s = (*tok_s)->right;
-		free((*tok_s)->left);
+		// free((*tok_s)->left);
 		(*tok_s)->left = NULL;
 	}
 }

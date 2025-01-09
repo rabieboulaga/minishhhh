@@ -28,18 +28,18 @@ int    path_check(char *str)
     return 0;
 }
 
-void    free_list(char **str)
-{
-    int i;
+// void    free_list(char **str)
+// {
+//     int i;
 
-    i = 0;
-    while (str[i])
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
-}
+//     i = 0;
+//     while (str[i])
+//     {
+//         free(str[i]);
+//         i++;
+//     }
+//     free(str);
+// }
 
 int     help(char **cmd)
 {
@@ -57,11 +57,12 @@ int     help(char **cmd)
         test = ft_split(tmp, ':');
         while (test[i])
         {
-            free(global.path);
+            // free(global.path);
             tmp = ft_strjoin(test[i], "/");
             global.path = ft_strjoin(tmp, cmd[0]);
             if (access(global.path, X_OK) == 0)
-                return(free_list(test), 1);
+                return 1;
+                // return(free_list(test), 1);
             i++;
         }
     }

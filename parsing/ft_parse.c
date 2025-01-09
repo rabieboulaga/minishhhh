@@ -29,9 +29,10 @@ s_input	*tokenizer(char *str)
 	while (str[i])
 	{
 		if (!token_1(&input, str, &i, &parenthes))
-			return (free(str), NULL); 
+            return NULL;
+			// return (free(str), NULL); 
 	}
-    free(str);
+    // free(str);
     str = NULL;
 	return (input);
 }
@@ -45,7 +46,7 @@ s_input *ft_parse(char *rl)
     free(rl);
     if(!str || check_beggining(str) == 0)
     {
-        free(str);
+        // free(str);
         return NULL;
     }
     input = tokenizer(str);

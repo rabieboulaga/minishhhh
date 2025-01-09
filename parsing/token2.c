@@ -65,6 +65,7 @@ int check_next_quote(char *s, char c)
 
 	i = 0;
 	// printf("the charchater in this is [%c] \n", *s);
+	// printf("the string is [%s]\n", s);
 	if (!s)
         return -1;
 
@@ -77,6 +78,7 @@ int check_next_quote(char *s, char c)
 		i++;
 		s++;
 	}
+	// printf("-> [%d] -> the charchater in this is [%c] \n",i, c);
 	printf("syntax error: unclosed quotes\n");
 	return -1;
 }
@@ -92,7 +94,7 @@ char	*cmd_help(char *s, int l, int *k, int flag)
 	int	j;
 	char	*ret;
 
-	ret = malloc(sizeof(char) * (l + 1));
+	ret = (char *)ft_malloc(sizeof(char) * (l + 1));
 	if (!ret)
 	{
 		printf("failes\n");
@@ -127,7 +129,7 @@ char **fill_command(char *s, int l, int *k, int flag)
 		return(NULL);
 	prep = cmd_help(s, l, k, flag);
 	freturn = ft_split(prep, 127);
-	free(prep);
+	// free(prep);
 	prep = NULL;
 	return (freturn);
 }
@@ -180,7 +182,7 @@ int str_len(char *s, int i, int flag)
 	}
 	if (!flag)
 	{
-		while (check_spaces(s[i++]))
+		while (check_spaces(s[i]))
 			l++;
 	}
 	return (l);
@@ -200,7 +202,7 @@ s_redir	*node_create_redirection(char **s, s_token tok)
 
 	if (!s)
 		return (NULL);
-	node = malloc(sizeof(s_redir));
+	node = (s_redir *)ft_malloc(sizeof(s_redir));
 	if (!node)
 	{
 		printf("failes\n");
@@ -212,7 +214,7 @@ s_redir	*node_create_redirection(char **s, s_token tok)
 	node->fd = -1;
 	node->left = NULL;
 	node->right = NULL;
-	free(s);
+	// free(s);
 	s = NULL;
 	return (node);
 }
