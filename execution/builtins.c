@@ -6,15 +6,17 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:24:54 by rabie             #+#    #+#             */
-/*   Updated: 2025/01/08 22:59:39 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:08:28 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void    builtins(char **cmd)
-{    
-    if (ft_ncmp("echo", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)
+int    builtins(char **cmd)
+{   
+    if (cmd == NULL)
+        return(ft_exited(0, 0));  
+    else if (ft_ncmp("echo", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)
         echo(cmd);
     else if (ft_ncmp("pwd", cmd[0], 3) == 0 && ft_strlen(cmd[0]) == 3)
         pwd();
@@ -29,5 +31,6 @@ void    builtins(char **cmd)
     else
         cmd_execution(cmd);
     free_list(cmd);
+    return 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:28 by rabie             #+#    #+#             */
-/*   Updated: 2024/10/20 12:36:08 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:35:33 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int    pwd()
 
     getcwd(buff, sizeof(buff));
     printf("%s\n", buff);
-    return 0;
+    return (ft_exited(0, 0));
 }
 
 
