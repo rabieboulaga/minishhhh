@@ -53,77 +53,77 @@ void    fill_between_quote_1(char **str, char *s, int *i)
 	}
 }
 
-void	change_val(char **keep, char *s, int *i)
-{
-	char	*var;
-	char	**ret;
-	char	*save;
-	int	    flg;
+// void	change_val(char **keep, char *s, int *i)
+// {
+// 	char	*var;
+// 	char	**ret;
+// 	char	*save;
+// 	int	    flg;
 
-	(*i)++;
-	ret = keep;
-	flg = 0;
-	if (s[*i] == '?')
-		flg = 1;
-	var = expand_var(s, i);
-	save = var;
-	if (!var)
-		return ;
-	while (*var)
-		*(*ret)++ = *var++;
-	*(*ret) = '\0';
-	if (flg)
-		free(save);
-}
-void    ft_change_command(char *command, char *str)
-{
-    int i;
+// 	(*i)++;
+// 	ret = keep;
+// 	flg = 0;
+// 	if (s[*i] == '?')
+// 		flg = 1;
+// 	var = expand_var(s, i);
+// 	save = var;
+// 	if (!var)
+// 		return ;
+// 	while (*var)
+// 		*(*ret)++ = *var++;
+// 	*(*ret) = '\0';
+// 	if (flg)
+// 		free(save);
+// }
+// void    ft_change_command(char *command, char *str)
+// {
+//     int i;
 
-    i = 0;
-    while(str[i])
-    {
-        if(str[i] == 39)
-            fill_between_quote_1(&command, str, &i);
-        else if(str[i] == 34)
-            fill_between_quote_2(&command, str, &i);
-        else if(str[i] == '$' && (is_legit(str[i + 1]) || str[i + 1] == '?'))
-            change_val(&command, str, &i);
-        else if(str[i] == '$' && (str[i + 1] == 34 || str[i + 1] == 39))
-            i++;
-        else
-            *command++ = str[i++];
-    }
-    *command = '\0';
-}
-void	fill_between_quote_2_help(char **str, int *i, char *s)
-{
-	char	*var;
+//     i = 0;
+//     while(str[i])
+//     {
+//         if(str[i] == 39)
+//             fill_between_quote_1(&command, str, &i);
+//         else if(str[i] == 34)
+//             fill_between_quote_2(&command, str, &i);
+//         else if(str[i] == '$' && (is_legit(str[i + 1]) || str[i + 1] == '?'))
+//             change_val(&command, str, &i);
+//         else if(str[i] == '$' && (str[i + 1] == 34 || str[i + 1] == 39))
+//             i++;
+//         else
+//             *command++ = str[i++];
+//     }
+//     *command = '\0';
+// }
+// void	fill_between_quote_2_help(char **str, int *i, char *s)
+// {
+// 	char	*var;
 
-	(*i)++;
-	var = expand_var(s, i);
-	if (!var || !*var)
-		return ;
-	while (*var)
-		*(*str)++ = *var++;
-}
-void   fill_between_quote_2(char **str, char *s, int *i)
-{
-	*(*str)++ = s[(*i)++];
-	while (s[*i])
-	{
-		if (s[*i] == '$' && is_legit(s[(*i) + 1]))
-			fill_between_quote_2_help(str, i, s);
-		else if (s[*i] == 34)
-		{
-			*(*str)++ = s[(*i)++];
-			*(*str) = '\0';
-			return ;
-		}
-		else
-			*(*str)++ = s[(*i)++];
-		*(*str) = '\0';
-	}
-}
+// 	(*i)++;
+// 	var = expand_var(s, i);
+// 	if (!var || !*var)
+// 		return ;
+// 	while (*var)
+// 		*(*str)++ = *var++;
+// }
+// void   fill_between_quote_2(char **str, char *s, int *i)
+// {
+// 	*(*str)++ = s[(*i)++];
+// 	while (s[*i])
+// 	{
+// 		if (s[*i] == '$' && is_legit(s[(*i) + 1]))
+// 			fill_between_quote_2_help(str, i, s);
+// 		else if (s[*i] == 34)
+// 		{
+// 			*(*str)++ = s[(*i)++];
+// 			*(*str) = '\0';
+// 			return ;
+// 		}
+// 		else
+// 			*(*str)++ = s[(*i)++];
+// 		*(*str) = '\0';
+// 	}
+// }
 // char *parsing_redirection(s_redir *redir, char *str ,int *flag)
 // {
 //     int j;
@@ -251,52 +251,53 @@ char *ft_getenv(char *s)
     // printf("unfound expand\n");
     return NULL;
 }
-char *expand_var(char *str, int *i)
-{
-    int save;
-    char *v;
-    char *s;
+// char *expand_var(char *str, int *i)
+// {
+//     int save;
+//     char *v;
+//     char *s;
 
-    save = *i;
-    if (str[save] == '?')
-    {
-        (*i)++;
-        ft_itoa(global.exited);
-    }
-    while (is_legit(str[save]) == 1)
-        save++;
-    save -= *i;
-    s = ft_substr(str, *i, save);
-    // v = ft_getenv(s);
-    // printf("--> %s\n", v);
-    *i += save;
-    // if (!v)
-    // {
-    //     free(s);
-    //     return (NULL);
-    // }
-    free(s);
-    return (v);
-}
+//     save = *i;
+//     if (str[save] == '?')
+//     {
+//         (*i)++;
+//         ft_itoa(global.exited);
+//     }
+//     while (is_legit(str[save]) == 1)
+//         save++;
+//     save -= *i;
+//     s = ft_substr(str, *i, save);
+//     // v = ft_getenv(s);
+//     // printf("--> %s\n", v);
+//     *i += save;
+//     // if (!v)
+//     // {
+//     //     free(s);
+//     //     return (NULL);
+//     // }
+//     free(s);
+//     printf("vv is %s\n", v);
+//     return (v);
+// }
 
-int length_val(char *str, int *i)
-{
-    char *val;
-    int flag;
-    int len;
+// int length_val(char *str, int *i)
+// {
+//     char *val;
+//     int flag;
+//     int len;
 
-    (*i)++;
-    flag = 0;
-    if(str[*i] == '?')
-        flag = 1;
-    val = expand_var(str,i); // check
-    if(!val)
-        return (0);
-    if (flag)
-        free(val);
-    len = ft_strlen(val);
-    return (len);   
-}
+//     (*i)++;
+//     flag = 0;
+//     if(str[*i] == '?')
+//         flag = 1;
+//     val = expand_var(str,i); // check
+//     if(!val)
+//         return (0);
+//     if (flag)
+//         free(val);
+//     len = ft_strlen(val);
+//     return (len);   
+// }
 int find_len(char *str)
 {
     int i;

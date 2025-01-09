@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 SYSTEMD_EXEC_PID=718832
 GJS_DEBUG_TOPICS=JS ERROR;JS LOG
 SESSION_MANAGER=local/c4r9p10.1337.ma:@/tmp/.ICE-unix/718809,unix/c4r9p10.1337.ma:/tmp/.ICE-unix/718809
@@ -63,3 +64,5 @@ LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd
 _=/home/rboulaga/Desktop/minishell/./minishell
 
 f
+=======
+>>>>>>> 6c725eb1a4f4c8a836bb8e1d5fa14d64545e65dc

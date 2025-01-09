@@ -112,6 +112,7 @@ static void	sig_handler(int signum)
 void handle_quit(int signum)
 {
     // printf("---> %d and in_herdoc %d\n", global.executed, global.in_herdoc);
+    (void)signum;
     if(!global.executed == 0)
     {
         // ft_putstr_fd("Quit (core dumped)\n", 2);
@@ -152,7 +153,7 @@ int main(int argc, char **argv, char **env)
     int fd_output;
 	(void)argc;
 	(void)argv;
-    int i = 0;  
+    // int i = 0;  
     s_input *input;
 
     ft_initialize(env, &fd_input, &fd_output); 
@@ -160,6 +161,7 @@ int main(int argc, char **argv, char **env)
     while(1)
     {
         // printf("1-  %d\n", global.executed);
+        // printf("1-  %d\n", global.exited);
         handle_signal();
         rl = readline("minishell --> ");
         if(!rl)
@@ -173,6 +175,7 @@ int main(int argc, char **argv, char **env)
         ft_execute(input);
         global.executed = 0;
         // printf("2-  %d\n", global.executed);
+        // printf("2-  %d\n", global.exited); 
     }
 	return 0;
 }
