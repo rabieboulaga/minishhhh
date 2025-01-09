@@ -62,11 +62,15 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
+<<<<<<< HEAD
 	int 			test;
 	s_garbage	*garbage;
+=======
+>>>>>>> fc9f81a343759a3dd98b191882ed74639063dd48
 	int 			executed;
 	int 			exited;	
 	int				in_herdoc;
+	s_garbage	*garbage;
 }	s_global;
 
 extern s_global global;
