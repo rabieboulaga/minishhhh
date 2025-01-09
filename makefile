@@ -1,6 +1,6 @@
 CC = cc 
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 # SRC = $(wildcard ./parsing/*.c) $(wildcard ./libft_torename/*.c)
 

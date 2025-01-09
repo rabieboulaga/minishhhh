@@ -96,7 +96,7 @@ s_global global;
 // }
 
 
-static void	sig_handler(int signum)
+void	sig_handler(int signum)
 {
     (void)signum;
     if(!global.executed)
