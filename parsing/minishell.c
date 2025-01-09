@@ -187,18 +187,19 @@ void default_signal()
     }
 }
 
-int main(int argc, char **argv, char **env)
-{
-    char *rl;
-    int fd_input;
-    int fd_output;
-	(void)argc;
-	(void)argv;
-    // int i = 0;  
-    s_input *input;
+// int main(int argc, char **argv, char **env)
+// {
+//     char *rl;
+//     int fd_input;
+//     int fd_output;
+// 	(void)argc;
+// 	(void)argv;
+//     // int i = 0;  
+//     s_input *input;
 
-    ft_initialize(env, &fd_input, &fd_output); 
+//     ft_initialize(env, &fd_input, &fd_output); 
     
+<<<<<<< HEAD
     while(1)
     {
         // printf("1-  %d\n", global.executed);
@@ -221,7 +222,83 @@ int main(int argc, char **argv, char **env)
         // printf("2-  %d\n", global.exited); 
     }
 	return 0;
+=======
+//     while(1)
+//     {
+//         // printf("1-  %d\n", global.executed);
+//         // printf("1-  %d\n", global.exited);
+//         handle_signal();
+//         rl = readline("minishell --> ");
+//         if(!rl)
+//         {
+//             break;
+//         }
+//         global.executed = 1;
+//         add_history(rl);
+//         input = ft_parse(rl);
+//         expand_real(input);
+//         ft_execute(input);
+//         global.executed = 0;
+//         // printf("2-  %d\n", global.executed);
+//         // printf("2-  %d\n", global.exited); 
+//     }
+// 	return 0;
+// }
+
+
+s_garbage *ft_lstnew_garbage(char *ptr)
+{
+    s_garbage *new_node = malloc(sizeof(s_garbage));
+    if (!new_node)
+        return NULL; // Handle allocation failure
+    new_node->ptr = ptr;
+    new_node->next = NULL;
+    return new_node;
+>>>>>>> f7d42c1b5807e1b455e94c74741733cc6b731ab2
 }
+
+void ft_lstadd_back_garbage(s_garbage **lst, s_garbage *new)
+{
+    s_garbage *current;
+
+    if (!new || !lst)
+        return;
+    if (*lst == NULL)
+        *lst = new;
+    else
+    {
+        current = *lst;
+        while (current->next)
+            current = current->next;
+        current->next = new;
+    }
+}
+
+void free_garbage(void)
+{
+    s_garbage *current = global.garbage;
+    s_garbage *tmp;
+
+    while (current)
+    {
+        tmp = current;
+        if (current->ptr)
+            free(current->ptr);
+        current = current->next;
+        free(tmp);
+    }
+    global.garbage = NULL;  
+}
+
+int main()
+{
+    char *str = malloc(15);
+    char *str1 = malloc(12);
+    ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(str));
+    ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(str1));
+    free_garbage();
+}
+
 
 // int main()
 // {
