@@ -6,17 +6,19 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:24:54 by rabie             #+#    #+#             */
-/*   Updated: 2025/01/09 01:08:28 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:32:53 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+// lay next .. gdb
+// backtrace  
 int    builtins(char **cmd)
 {   
     if (cmd == NULL)
         return(ft_exited(0, 0));  
-    else if (ft_ncmp("echo", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)
+    if (ft_ncmp("echo", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)
         echo(cmd);
     else if (ft_ncmp("pwd", cmd[0], 3) == 0 && ft_strlen(cmd[0]) == 3)
         pwd();

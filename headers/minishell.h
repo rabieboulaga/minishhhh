@@ -62,6 +62,7 @@ typedef struct t_global
 	char			*path;
 	int				status;
 	int				wall;
+	int 			test;
 	s_garbage	*garbage;
 	int 			executed;
 	int 			exited;	
@@ -103,6 +104,8 @@ char	*new_cmd(char *s, int *flg);
 int	calc_len(char *s);
 void	should_expnd(int *flg);
 
+
+void	sig_handler(int signum);
 
 
 void exec_and(s_input *input);
@@ -199,6 +202,7 @@ void	delete_quotes(char **args);
 char	*new_cmd(char *s, int *flg);
 void	should_expnd(int *flg);
 int	calc_len(char *s);
+int  open_heredoc(s_redir *tmp);
 
 
 
