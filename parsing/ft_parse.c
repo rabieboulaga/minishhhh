@@ -1,5 +1,22 @@
 #include "../headers/minishell.h"
 
+// int check_beggining(char *str)
+// {
+//     s_token tok;
+
+//     if(str[0] == '\0')
+//         tok = return_token(str[0], 'x');
+//     else
+//         tok = return_token(str[0], str[1]);
+//     if(tok == OR || tok == AND || tok == PIPE || tok == RPR)
+//     {
+//         printf("Error");
+//         global.exited = 2;
+//         return(0);
+//     }
+//     return(1);
+// }
+
 int check_beggining(char *str)
 {
     s_token tok;
@@ -8,14 +25,21 @@ int check_beggining(char *str)
         tok = return_token(str[0], 'x');
     else
         tok = return_token(str[0], str[1]);
-    if(tok == OR || tok == AND || tok == PIPE || tok == RPR)
+    if(tok == OR || tok == AND)
     {
-        printf("Error");
+        printf("bash: syntax error near unexpected token %c%c'\n", str[0], str[1]);
         global.exited = 2;
         return(0);
     }
+    else if (tok == PIPE ||  tok == RPR)
+    {
+        ft_printf("bash: syntax error near unexpected token %c'\n", str[0]);
+        global.exited = 2;
+        return (0);
+    }
     return(1);
-}
+} 
+
 s_input	*tokenizer(char *str)
 {
 	s_input	*input;
@@ -29,9 +53,10 @@ s_input	*tokenizer(char *str)
 	while (str[i])
 	{
 		if (!token_1(&input, str, &i, &parenthes))
-			return (free(str), NULL); 
+            return NULL;
+			// return (free(str), NULL); 
 	}
-    free(str);
+    // free(str);
     str = NULL;
 	return (input);
 }
@@ -100,7 +125,7 @@ s_input *ft_parse(char *rl)
     free(rl);
     if(!str || check_beggining(str) == 0)
     {
-        free(str);
+        // free(str);
         return NULL;
     }
     input = tokenizer(str);

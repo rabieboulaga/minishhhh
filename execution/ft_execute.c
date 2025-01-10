@@ -154,7 +154,8 @@ void exec_str(s_input *input)
         return ;
     }
     if (input->cmd && !input->cmd[0])
-		(free(input->cmd), input->cmd = NULL);
+        (input->cmd = NULL);
+		// (free(input->cmd), input->cmd = NULL);
     if(input->redirections != NULL)
     {
         if (input->redirections->fd != -1)
@@ -392,18 +393,19 @@ int	calc_len(char *s)
 char	*new_cmd(char *s, int *flg)
 {
 	char	*new;
-	char	*save;
+	// char	*save;
 	int	l;
 	char	keep;
             
-	new = malloc(sizeof(char) * (calc_len(s) + 1));
+	new = (char *)ft_malloc(sizeof(char) * (calc_len(s) + 1));
 	if (!new)
 	{
 		printf("failes\n");
 		exit(1);
 	}
+    // ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(new));
 	l = 0;
-	save = s;
+	// save = s;
 	while (*s)
 	{
 		if (*s == 34 || *s == 39)
@@ -419,7 +421,8 @@ char	*new_cmd(char *s, int *flg)
 		}
 		new[l++] = *s++;
 	}
-	return (new[l] = '\0', free(save), new);
+	// return (new[l] = '\0', free(save), new);
+    return(new[l] = '\0', new);
 }
 
 void	delete_quotes(char **args)
@@ -450,11 +453,12 @@ char **parsing_cmd(char *str)
     // exit(0);
     if(len<0)
         return(NULL);
-    cmd = malloc(sizeof(char) * (len + 1));
+    cmd = (char *)ft_malloc(sizeof(char) * (len + 1));
     if(!cmd)
         return(NULL);
+    // ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(cmd));
     return_cmd = fill_command(str, len, &i, 0);
-    
+
     delete_quotes(return_cmd);
     return(return_cmd);
 }

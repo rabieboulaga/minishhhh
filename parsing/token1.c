@@ -117,7 +117,7 @@ s_input	*creat_node_command(char *s, s_redir *redir, s_token tok, int token_flag
 {
 	s_input	*node;
 
-	node = malloc(sizeof(s_input));
+	node = ft_malloc(sizeof(s_input));
 	if (!node)
 	{
 		ft_putstr_fd("failes\n", 2);
@@ -183,7 +183,8 @@ int token_1(s_input **head, char *s, int *i, int *par)
 	if (new->tok == LPR)
 	{
 		if(new->tok == LPR)
-			return(free(new),0);
+			return 0;
+			// return(free(new),0);
 	}
 	build_command_list(head, new);
 	return (1);

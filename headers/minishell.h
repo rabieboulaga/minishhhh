@@ -67,15 +67,17 @@ typedef struct t_global
 	int				status;
 	int				wall;
 	int 			test;
-	s_garbage	*garbage;
 	int 			executed;
 	int 			exited;	
 	int				in_herdoc;
-	// s_garbage	*garbage;
+	s_garbage	*garbage;
 }	s_global;
 
 extern s_global global;
 
+s_garbage *ft_lstnew_garbage(void *ptr);
+void ft_lstadd_back_garbage(s_garbage **lst, s_garbage *new);
+void *ft_malloc(int size);
 
 
 
@@ -165,6 +167,7 @@ int look_for_1_quote(char *str, int *i, char c);
 int length_val(char *str, int *i);
 char *ft_getenv(char *s);
 int is_legit(int c);
+char	*get_env_value(char *name);
 char *parsing_redirection(s_redir *redir, char *str ,int *flag);
 void   fill_between_quote_2(char **str, char *s, int *i);
 void	fill_between_quote_2_help(char **str, int *i, char *s);
@@ -208,6 +211,8 @@ char	*new_cmd(char *s, int *flg);
 void	should_expnd(int *flg);
 int	calc_len(char *s);
 int  open_heredoc(s_redir *tmp);
+int     ft_exit(char **cmd);
+
 
 //
 void	handle_signals(int sig);

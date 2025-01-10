@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:25:47 by rabie             #+#    #+#             */
-/*   Updated: 2025/01/09 00:30:17 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 22:48:44 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int    echo(char **cmd)
     }
     while (cmd[j])
     {   
-        printf("%s", cmd[j]);
+        ft_putstr_fd(cmd[j], 1);
         if (cmd[j + 1])
-            printf(" ");
+            ft_putstr_fd(" ", 1);
         j++;
     }    
     if(newline == 0)
-        printf("\n");
+        ft_putstr_fd("\n", 1);
     return (ft_exited(0, 0));
 }
 

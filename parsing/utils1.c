@@ -2,14 +2,11 @@
 
 s_token	return_token(char c1, char c2)
 {
+
 	if (c1 == '|' && c2 == '|')
-	{
 		return (OR);
-	}
-	if (c1 == '&' && c2 == '&')
-	{
+	if (c1 == '&' && c1 == '&')
 		return (AND);
-	}
 	if (c1 == '<' && c2 == '<')
 		return (HEREDOC);
 	if (c1 == '>' && c2 == '>')
@@ -34,7 +31,7 @@ s_input	*node_creation_cmd(char *s, s_redir *redir, s_token tok, int token_flag)
 {
 	s_input	*node;
 
-	node = malloc(sizeof(s_input));
+	node = (s_input *)ft_malloc(sizeof(s_input));
 	if (!node)
 	{
 		printf("failes\n");

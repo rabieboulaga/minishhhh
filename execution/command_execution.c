@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/09 23:49:12 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:38:31 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ int    path_check(char *str)
     return 0;
 }
 
-void    free_list(char **str)
-{
-    int i;
+// void    free_list(char **str)
+// {
+//     int i;
 
-    i = 0;
-    while (str[i])
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
-}
+//     i = 0;
+//     while (str[i])
+//     {
+//         free(str[i]);
+//         i++;
+//     }
+//     free(str);
+// }
 
 int     help(char **cmd)
 {
@@ -57,11 +57,12 @@ int     help(char **cmd)
         test = ft_split(tmp, ':');
         while (test[i])
         {
-            free(global.path);
+            // free(global.path);
             tmp = ft_strjoin(test[i], "/");
             global.path = ft_strjoin(tmp, cmd[0]);
             if (access(global.path, X_OK) == 0)
-                return(free_list(test), 1);
+                return 1;
+                // return(free_list(test), 1);
             i++;
         }
     }
@@ -112,7 +113,13 @@ int     cmd_execution(char **cmd)
                 if (execve(global.path, cmd, global.env_copy) == -1)
                     exit (0);
             }
-            if(path_check(cmd[0]) && access(cmd[0], F_OK) == 0)
+            else if (path_check(cmd[0]) && access(cmd[0], F_OK) == -1)
+            {
+                ft_putstr_fd("Minishell: ", 2);
+		        ft_putstr_fd(cmd[0], 2);
+		        (ft_putstr_fd(": No such file or directory\n", 2), exit(127));
+            }
+            if(path_check(cmd[0]) && access(cmd[0], F_OK) == 0)//./minishell
             {
                 if (access(cmd[0], X_OK) == -1)
                 {
@@ -123,7 +130,7 @@ int     cmd_execution(char **cmd)
                 }
                 else if (execve(cmd[0], cmd, global.env_copy) == -1)
                 {
-                    exit(1);
+                    exit(0);
                 }
             }
             else
@@ -140,20 +147,4 @@ int     cmd_execution(char **cmd)
             global.exited = WEXITSTATUS(status);
         }
         return 1;
-    // }
-    
-    
-    
-    
-    
-    
-    
-    // if (function)
-        
-    if (global.wall != 1)
-        printf("Minishell : command not found : %s\n", cmd[0]);
-    else 
-        printf("Minishell: %s: No such file or directory\n", cmd[0]);
-    //bash: KASDF: No such file or directory
-    return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 23:08:37 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/10 02:44:23 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 22:38:02 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,31 @@ int  open_heredoc(s_redir *tmp)
             {
                 printf("minishell: warning: here-document at line 10 delimited by end-of-file");
                 printf(" (wanted `%s')\n", tmp->file);
+                close (fd);
                 exit(0);
             }
             if(str)
                 expand_str = check_expand_herdoc(str);
             if (ft_strlen(str) == ft_strlen(tmp->file) && !ft_strncmp(str, tmp->file, ft_strlen(str)))
+            {
+                close (fd);
                 exit(0);
+            }
             ft_putstr_fd(expand_str, fd);
             ft_putstr_fd("\n", fd);
-            if (str)
-            {
-                free(str);
-                free(expand_str);
-            }
+            // if (str)
+            // {
+            //     free(str);
+            //     free(expand_str);
+            // }
         }    
     }
     else
     {
         waitpid(pid, &status, 0);
-        if (status == 130)
-        {
-            printf("quiiiit\n");
-        }
-        
         global.in_herdoc = 0;
         tmp->fd = open("example.txt", O_RDONLY, 0644);
         close(fd);
-        
     }
     return 0;
 }
@@ -89,7 +87,7 @@ int     check_heredoc(s_input *input)
     while (tmp != NULL)
     {
         if (tmp->tok == HEREDOC)
-        {
+        {                
             open_heredoc(tmp);             
         }
         tmp = tmp->right;

@@ -60,7 +60,7 @@ static char	*ft_itoa_sub(int n, size_t len, size_t check)
 	char	*str;
 
 	i = 0;
-	str = (char *)malloc((len + 1) * sizeof(char));
+	str = (char *)ft_malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	while (n > 0 && len > 0)

@@ -1,2 +1,3 @@
-fgkdf
-fdgjd
+free in exit builtins
+exit status
+back to redirections
