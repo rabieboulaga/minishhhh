@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 05:57:49 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/10 20:19:46 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 00:18:09 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int     ft_exit(char **cmd)
         ft_putstr_fd("exit : ", 2);
 		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
+        free_garbage();
         exit(2);
     }
     else if (exit_arguments(cmd))
@@ -67,9 +68,10 @@ int     ft_exit(char **cmd)
     {
         global.exited = ft_atoi(cmd[1]);
         global.exited %= 255;
+        free_garbage();
         exit(global.exited);
     }
     else
-        exit(global.exited);    
+        return(free_garbage(), exit(global.exited), 0); 
     return 0;
 }

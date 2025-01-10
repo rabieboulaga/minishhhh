@@ -98,6 +98,7 @@ char	*new_cmd(char *s, int *flg);
 int	calc_len(char *s);
 void	should_expnd(int *flg);
 void expand_real(s_input *input);
+void free_garbage(void);
 
 // void check_expand(s_input *input);
 char *check_expand(char *input);
