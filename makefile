@@ -13,7 +13,7 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $@ $^ -lreadline 
+	$(CC) -o $@ $^ -fsanitize=address -lreadline 
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
