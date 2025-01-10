@@ -41,20 +41,25 @@ int	check_syntax(s_token tok, char *s)
 		return (1);
 	if (check == END)
 	{
-        printf("bash: syntax error near unexpected token `newline'\n");
-		global.exited = 258;
+        ft_putstr_fd("bash: syntax error near unexpected token `newline'\n", 2);
+		global.exited = 2;
     }
 	else if (check == AND || check == OR || check == APPEND || check == HEREDOC)
     {
-		printf("bash: syntax error near unexpected token `%c%c'\n", *s, *(s + 1));
-		global.exited = 258;
+		ft_putstr_fd("bash: syntax error near unexpected token `", 2);
+		ft_putchar_fd(*(s + 1), 2);
+		ft_putchar_fd(*(s + 1), 2);
+		ft_putstr_fd("'\n", 2);
+		global.exited = 2;
     }
 	else
 	{
-		// printf("%d\n", check);
-		printf("bash: syntax error near unexpected token `%c'\n", *s);
+		// ft_pustr_fd("%d\n", check);
+		ft_putstr_fd("bash: syntax error near unexpected token `", 2);
+		ft_putchar_fd(*s, 2);
+		ft_putstr_fd("'\n", 2);
 		// exit(1);
-		global.exited = 258;;
+		global.exited = 2;;
 	}
 	return (0);
 }
@@ -62,7 +67,7 @@ int	check_syntax(s_token tok, char *s)
 int check_next_quote(char *s, char c)
 {
 	int i;
-
+	
 	i = 0;
 	// printf("the charchater in this is [%c] \n", *s);
 	// printf("the string is [%s]\n", s);

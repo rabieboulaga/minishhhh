@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/08 03:32:55 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/10 00:22:17 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,20 @@ int     var_parser(char *v)
             i++;
         else
         {
-            printf("minishell: export: `%s': not a valid identifier\n", v);
-            return 0;
+            ft_putstr_fd("minishell: export: `", 2);
+            ft_putstr_fd(v, 2);
+            ft_putstr_fd("': not a valid identifier\n", 2);
+            return (global.exited = 1, 1);
         }
     }
     if (v[0] == '=')
     {
-        printf("minishell: export: `%s': not a valid identifier\n", v);
-        return 0;
-    }        
+        ft_putstr_fd("minishell: export: `", 2);
+        ft_putstr_fd(v, 2);
+        ft_putstr_fd("': not a valid identifier\n", 2);
+        return (global.exited = 1, 1);
+
+    }
     copying_II(v);
     return 1;
 }
@@ -84,12 +89,6 @@ int check_variable(char *var)
     {    
         if (ft_ncmp(global.env_copy[i], var, len + 1) == 0)//this is the same variable (change the varible value 1-free 2-strdup)
         {
-            // if (join_var(var, global))
-            // { 
-            //     printf("heeeeeeey\n");
-
-            //     return 1;
-            // }
             // free(global.env_copy[i]);
             global.env_copy[i] = ft_strdup(var);
             return 1;

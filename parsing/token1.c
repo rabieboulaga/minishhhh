@@ -17,8 +17,8 @@ int	check_rpr(char *s, int i)
             return (i);
         i++;
     }
-    printf("syntax error: unclosed parentheses\n");
-    global.exited = 258;
+    ft_putstr_fd("syntax error: unclosed parentheses\n", 2);
+    global.exited = 2;
     return (-1);
 }
 
@@ -67,18 +67,23 @@ int	check_syntax_error(s_token tok, char *s)
 		return (1);
 	if (next == END)
     {
-		printf("syntax error near unexpected token`newline'\n");
-        global.exited = 258;
+		ft_putstr_fd("syntax error near unexpected token`newline'\n", 2);
+        global.exited = 2;
     }
 	else if (next == AND || next == OR || next == APPEND || next == HEREDOC)
     {
-		printf("syntax error near unexpected token`%c%c'\n", *s, *(s + 1));
-        global.exited = 258;
+		ft_putstr_fd("syntax error near unexpected token`", 2);
+		ft_putchar_fd(*(s + 1), 2);
+		ft_putchar_fd(*(s + 1), 2);
+		ft_putstr_fd("'\n", 2);
+        global.exited = 2;
     }
 	else
     {
-		printf("syntax error near unexpected token`%c'\n",*s);
-        global.exited = 258;
+		ft_putstr_fd("syntax error near unexpected token`", 2);
+		ft_putchar_fd(*s, 2);
+		ft_putstr_fd("'\n", 2);
+        global.exited = 2;
     }
 	return (0);
 }
@@ -98,8 +103,8 @@ int return_token_syntax(int tok,char *s, int *i,  int *par)
     }
     else if (tok == RPR && *i > *par)
     {
-        printf("syntax error: unexpected ')'\n");
-        global.exited = 258;
+        ft_putstr_fd("syntax error: unexpected ')'\n", 2);
+        global.exited = 2;
         return (0);
     }
 	while (check_spaces(s[*i]) == 1)
@@ -115,7 +120,7 @@ s_input	*creat_node_command(char *s, s_redir *redir, s_token tok, int token_flag
 	node = ft_malloc(sizeof(s_input));
 	if (!node)
 	{
-		printf("failes\n");
+		ft_putstr_fd("failes\n", 2);
 		exit(1);
 	}
 	node->command = s;

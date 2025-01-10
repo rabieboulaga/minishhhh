@@ -370,7 +370,7 @@ int	calc_len(char *s)
 			keep = *s;
             // printf("Kepp is actualy [%c]\n", keep);
             // printf("the [%c] is the s\n", *(s+1));
-			save = check_next_quote(s, keep);
+			save = check_next_quote(s, keep);  // fix   warning
             // printf("the s is [%s] and the save -> [%d]\n", s, save);
             if (save == -1)
                 return (-1);

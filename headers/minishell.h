@@ -12,6 +12,10 @@
 #include <limits.h>
 #include <sys/wait.h>
 
+# define IN_CHILD 6 
+# define IN_PARENT 7
+# define IN_HEREDOC 8
+# define BEFORE_READLINE 9
 
 typedef enum t_token
 {
@@ -208,8 +212,10 @@ void	should_expnd(int *flg);
 int	calc_len(char *s);
 int  open_heredoc(s_redir *tmp);
 
-
-
+//
+void	handle_signals(int sig);
+// static void	handle_heredoc(int sig);
+// static void	handle_interrupt(int sig);
 //-----------------------------
 // int     check_in(s_input *input);
 
