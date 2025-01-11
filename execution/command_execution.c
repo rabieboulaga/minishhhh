@@ -34,7 +34,7 @@ int	help(char **cmd)
 	char	*tmp;
 	int		i;
 
-	tmp = global.path;
+	tmp = g_global.path;
 	i = 0;
 	while (*tmp != '=')
 		tmp++;
@@ -45,13 +45,13 @@ int	help(char **cmd)
 		while (test[i])
 		{
 			tmp = ft_strjoin(test[i], "/");
-			global.path = ft_strjoin(tmp, cmd[0]);
-			if (access(global.path, X_OK) == 0)
+			g_global.path = ft_strjoin(tmp, cmd[0]);
+			if (access(g_global.path, X_OK) == 0)
 				return (1);
 			i++;
 		}
 	}
-	return (global.wall = 1, 0);
+	return (g_global.wall = 1, 0);
 }
 
 int	find_path(char **cmd)
@@ -59,12 +59,12 @@ int	find_path(char **cmd)
 	int	i;
 
 	i = 0;
-	while (global.env_copy[i])
+	while (g_global.env_copy[i])
 	{
-		if (ft_ncmp("PATH", global.env_copy[i], 4) == 0
-			&& global.env_copy[i][4] == '=')
+		if (ft_ncmp("PATH", g_global.env_copy[i], 4) == 0
+			&& g_global.env_copy[i][4] == '=')
 		{
-			global.path = ft_strdup(global.env_copy[i]);
+			g_global.path = ft_strdup(g_global.env_copy[i]);
 			if (help(cmd))
 				return (1);
 		}
@@ -93,7 +93,7 @@ int	cmd_execution(char **cmd)
 		}
 		else if (find_path(cmd) && !path_check(cmd[0]))
 		{
-			execve(global.path, cmd, global.env_copy);
+			execve(g_global.path, cmd, g_global.env_copy);
 		}
 		else if (path_check(cmd[0]) && access(cmd[0], F_OK) == -1)
 		{
@@ -111,14 +111,14 @@ int	cmd_execution(char **cmd)
 				ft_putstr_fd(" Permission denied \n", 2);
 				exit(126);
 			}
-			execve(cmd[0], cmd, global.env_copy);
+			execve(cmd[0], cmd, g_global.env_copy);
 			exit(0);
 		}
 		else
 		{
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
-			global.exited = 127;
+			g_global.exited = 127;
 			exit(127);
 			// return (ft_exited(0, 127));
 		}
@@ -126,8 +126,8 @@ int	cmd_execution(char **cmd)
 	else
 	{
 		waitpid(pid, &status, 0);
-		// global.exited = WEXITSTATUS(status);
-		global.exited = (((status)&0xff00) >> 8);
+		// g_global.exited = WEXITSTATUS(status);
+		g_global.exited = (((status)&0xff00) >> 8);
 	}
-	return (global.exited);
+	return (g_global.exited);
 }

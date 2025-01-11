@@ -30,7 +30,7 @@ static char	**ft_calculcount(char const *s, char c)
 	}
 	count++;
 	str = (char **)malloc(count * sizeof(char *));
-	ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(str));
+	ft_lstadd_back_garbage(&(g_global.garbage), ft_lstnew_garbage(str));
 	if (!str)
 	{
 		return (NULL);

@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htemsama <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/11 21:26:11 by htemsama          #+#    #+#             */
+/*   Updated: 2025/01/11 21:26:15 by htemsama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 int	check_not_operator(s_token tok)
 {
-	if (tok == STR || tok == IN || tok == OUT || tok == APPEND || tok == HEREDOC)
+	if (tok == STR || tok == IN || tok == OUT || tok == APPEND
+		|| tok == HEREDOC)
 		return (1);
 	else
 		return (0);
@@ -10,21 +23,21 @@ int	check_not_operator(s_token tok)
 
 int	check_rpr(char *s, int i)
 {
-
-    while (s[i] != '\0')
-    {
-        if (s[i] == ')')
-            return (i);
-        i++;
-    }
-    ft_putstr_fd("syntax error: unclosed parentheses\n", 2);
-    global.exited = 2;
-    return (-1);
+	while (s[i] != '\0')
+	{
+		if (s[i] == ')')
+			return (i);
+		i++;
+	}
+	ft_putstr_fd("syntax error: unclosed parentheses\n", 2);
+	g_global.exited = 2;
+	return (-1);
 }
 
 int	check_spaces(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r')
 		return (1);
 	else
 		return (0);
@@ -34,20 +47,20 @@ int	check_syntax_help(s_token tok, s_token next)
 {
 	if (tok == OR || tok == AND || tok == PIPE)
 	{
-		if (next == STR || next == IN || next == OUT
-			|| next == APPEND || next == LPR)
+		if (next == STR || next == IN || next == OUT || next == APPEND
+			|| next == LPR)
 			return (1);
 	}
 	if (tok == LPR)
 	{
-		if (next == STR || next == IN || next == OUT
-			|| next == APPEND || next == LPR)
+		if (next == STR || next == IN || next == OUT || next == APPEND
+			|| next == LPR)
 			return (1);
 	}
 	if (tok == RPR)
 	{
-		if (next == AND || next == OR || next == PIPE
-			|| next == RPR || next == END)
+		if (next == AND || next == OR || next == PIPE || next == RPR
+			|| next == END)
 			return (1);
 	}
 	if (tok == IN || tok == OUT || tok == APPEND || tok == HEREDOC)
@@ -58,133 +71,29 @@ int	check_syntax_help(s_token tok, s_token next)
 	return (0);
 }
 
-int	check_syntax_error(s_token tok, char *s)
+int	token_1(s_input **head, char *s, int *i, int *par)
 {
-	s_token	next;
+	s_token	tok;
+	s_input	*new;
 
-	next = return_token(*s, *(s + 1));
-	if (check_syntax_help(tok, next))
-		return (1);
-	if (next == END)
-    {
-		ft_putstr_fd("syntax error near unexpected token`newline'\n", 2);
-        global.exited = 2;
-    }
-	else if (next == AND || next == OR || next == APPEND || next == HEREDOC)
-    {
-		ft_putstr_fd("syntax error near unexpected token`", 2);
-		ft_putchar_fd(*(s + 1), 2);
-		ft_putchar_fd(*(s + 1), 2);
-		ft_putstr_fd("'\n", 2);
-        global.exited = 2;
-    }
+	if (s[*i] == '\0')
+		tok = return_token(s[*i], 'x');
 	else
-    {
-		ft_putstr_fd("syntax error near unexpected token`", 2);
-		ft_putchar_fd(*s, 2);
-		ft_putstr_fd("'\n", 2);
-        global.exited = 2;
-    }
-	return (0);
-}
-
-int return_token_syntax(int tok,char *s, int *i,  int *par)
-{
-    (*i)++;
-    if (tok == OR || tok == AND || tok == HEREDOC || tok == APPEND)
-		(*i)++;
-    else if(tok == LPR)
-    {
-        if(*par == 0)
-            *par = *i;
-        *par = check_rpr(&s[*par], *par) + 1;
-        if (*par == 0)
-            return (0);
-    }
-    else if (tok == RPR && *i > *par)
-    {
-        ft_putstr_fd("syntax error: unexpected ')'\n", 2);
-        global.exited = 2;
-        return (0);
-    }
-	while (check_spaces(s[*i]) == 1)
-		(*i)++;
-    if(!check_syntax_error(tok, &s[*i]))
-        return(0);
-    return(1);
-}
-s_input	*creat_node_command(char *s, s_redir *redir, s_token tok, int token_flag)
-{
-	s_input	*node;
-
-	node = ft_malloc(sizeof(s_input));
-	if (!node)
+		tok = return_token(s[*i], s[(*i) + 1]);
+	if (check_not_operator(tok) == 0)
 	{
-		ft_putstr_fd("failes\n", 2);
-		exit(1);
+		if (return_token_syntax(tok, s, i, par) == 0)
+			return (0);
+		new = creat_node_command(NULL, NULL, tok, check_command(tok));
 	}
-	node->command = s;
-	node->cmd = NULL;
-	node->tok = tok;
-	node->token_flag = token_flag;
-	node->redirections = redir;
-	node->left = NULL;
-	node->right = NULL;
-	return (node);
-}
-int	build_command_list(s_input **head, s_input *add)
-{
-	s_input	*help;
-
-	if (!head || !add)
-		return (0);
-	if (!*head)
-		*head = add;
 	else
-	{
-		help = *head;
-		while(help->right)
-			help = help->right;
-		help->right = add;
-		add->left = help;
-	}
-	return (1);
-}
-
-int	check_command(s_token tok)
-{
-	if (tok == IN || tok == OUT || tok == APPEND || tok == HEREDOC)
-		return (4);
-	if (tok == PIPE)
-		return (3);
-	if (tok == OR || tok == AND)
-		return (2);
-	return (1);
-}
-int token_1(s_input **head, char *s, int *i, int *par)
-{
-    s_token tok;
-    s_input *new;
-	
-	if(s[*i] == '\0')
-        tok = return_token(s[*i], 'x');
-    else
-        tok = return_token(s[*i], s[(*i) + 1]);
-    if(check_not_operator(tok) == 0)
-    {
-        if(return_token_syntax(tok,s,i,par) == 0)
-            return(0);
-		new = creat_node_command(NULL, NULL, tok,check_command(tok));
-    }
-	else
-		new = token_2(s,i,tok);
+		new = token_2(s, i, tok);
 	if (!new)
 		return (0);
 	if (new->tok == LPR)
 	{
-		if(new->tok == LPR)
-			return 0;
-			// return(free(new),0);
+		if (new->tok == LPR)
+			return (0);
 	}
 	build_command_list(head, new);
 	return (1);

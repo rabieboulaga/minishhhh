@@ -17,7 +17,7 @@ int     join_var(char *var)
 {
     int i;
    
-    (void)global;
+    (void)g_global;
     i = 0;
     while (var[i] && var[i] != '=')
         i++;
@@ -63,11 +63,11 @@ void    sort_list(int len)
         j = 0;
         while (j < len - i - 1)
         {
-            if (global.env_copy[j][0] > global.env_copy[j + 1][0])
+            if (g_global.env_copy[j][0] > g_global.env_copy[j + 1][0])
             {
-                tmp = global.env_copy[j];
-                global.env_copy[j] = global.env_copy[j + 1];
-                global.env_copy[j + 1] = tmp;
+                tmp = g_global.env_copy[j];
+                g_global.env_copy[j] = g_global.env_copy[j + 1];
+                g_global.env_copy[j + 1] = tmp;
             }
             j++;
         }

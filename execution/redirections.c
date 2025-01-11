@@ -76,6 +76,14 @@ int     in_out_files(s_input *input)
     s_redir *tmp;
 
     tmp = input->redirections;
+    char **str = ft_malloc(2 * sizeof(char *));
+    str[0] = tmp->file;
+    str[1] = NULL;
+    delete_quotes(str);
+    tmp->file = ft_strdup(str[0]);
+    free(str[1]);
+    free(str[0]);
+    free(str);
     while (tmp != NULL)
     {
         if (tmp->tok == IN)

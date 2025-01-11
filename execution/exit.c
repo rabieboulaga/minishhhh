@@ -66,12 +66,12 @@ int     ft_exit(char **cmd)
         return 1;
     if (flag == 2)
     {
-        global.exited = ft_atoi(cmd[1]);
-        global.exited %= 256;
+        g_global.exited = ft_atoi(cmd[1]);
+        g_global.exited %= 256;
         free_garbage();
-        exit(global.exited);
+        exit(g_global.exited);
     }
     else
-        return(free_garbage(), exit(global.exited), 0); 
+        return(free_garbage(), exit(g_global.exited), 0); 
     return 0;
 }

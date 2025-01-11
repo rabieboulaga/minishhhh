@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shuinting_yard.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htemsama <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/11 21:25:09 by htemsama          #+#    #+#             */
+/*   Updated: 2025/01/11 21:25:12 by htemsama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
-void	the_shunting_yard(s_input **input, s_input **tok_stack, s_input **new_stack)
+void	the_shunting_yard(s_input **input, s_input **tok_stack,
+		s_input **new_stack)
 {
 	while (*input)
 	{
@@ -8,7 +21,8 @@ void	the_shunting_yard(s_input **input, s_input **tok_stack, s_input **new_stack
 			push(input, new_stack, 0);
 		else if ((*input)->tok != LPR && (*input)->tok != RPR)
 		{
-			while (*tok_stack && (*tok_stack)->token_flag >= (*input)->token_flag)
+			while (*tok_stack
+				&& (*tok_stack)->token_flag >= (*input)->token_flag)
 				push(tok_stack, new_stack, 0);
 			push(input, tok_stack, 1);
 		}
@@ -71,14 +85,10 @@ void	push_2(s_input **top, s_input *to_add)
 void	remove_top(s_input **tok_s)
 {
 	if (!(*tok_s)->right)
-	{
-		// free(*tok_s);
 		*tok_s = NULL;
-	}
 	else
 	{
 		*tok_s = (*tok_s)->right;
-		// free((*tok_s)->left);
 		(*tok_s)->left = NULL;
 	}
 }

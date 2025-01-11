@@ -53,20 +53,20 @@ int     unset(char **cmd)
         return 1;
     while (cmd[i])
     {
-        while (global.env_copy[j])
+        while (g_global.env_copy[j])
         {        
-            if(env_cmp(cmd[i], global.env_copy[j])) 
+            if(env_cmp(cmd[i], g_global.env_copy[j])) 
             {
-                // free(global.env_copy[j]);
-                global.env_copy[j] = NULL;
-                while (global.env_copy[j + 1])
+                // free(g_global.env_copy[j]);
+                g_global.env_copy[j] = NULL;
+                while (g_global.env_copy[j + 1])
                 {
-                    if (global.env_copy[j + 1])
-                        global.env_copy[j] = global.env_copy[j + 1];
+                    if (g_global.env_copy[j + 1])
+                        g_global.env_copy[j] = g_global.env_copy[j + 1];
                     j++;
                 }
-                global.env_copy[j] = NULL;
-                // free(global->env_copy);
+                g_global.env_copy[j] = NULL;
+                // free(g_global->env_copy);
             }
             j++;
         }

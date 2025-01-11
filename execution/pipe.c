@@ -57,7 +57,7 @@ int     single_pipe(s_input *input)
     close(pipefd[1]);
     close(pipefd[0]);
     (waitpid(left, &status, 0), waitpid(right, &status, 0));
-    global.exited = (((status) & 0xff00) >> 8);   
+    g_global.exited = (((status) & 0xff00) >> 8);   
     return 0;
 }
 
@@ -70,7 +70,7 @@ int     single_pipe(s_input *input)
 //         builtins(cmd);
 //     // else if (input->tok == IN || input->tok == OUT)
 //     // {    
-//     //     redirections(input, global);    
+//     //     redirections(input, g_global);    
 //     //     printf(">dsfsdfsdfsdfsd\n");
 //     // }
 //     return 0;

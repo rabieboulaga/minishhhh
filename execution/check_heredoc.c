@@ -18,7 +18,7 @@ void  ft_SIGINT_(int pid)
     
 	write(1, "\n", 1);
 	close(STDIN_FILENO);
-	global.status = 130;
+	g_global.status = 130;
 	exit(130);
 }
 int error_print(char *str, char *file, int fd)
@@ -57,7 +57,7 @@ int  open_heredoc(s_redir *tmp)
     {
         while (1)
         {
-            global.in_herdoc = 1;
+            g_global.in_herdoc = 1;
             handle_signals(IN_HEREDOC);
             str = readline(">>");
             error_print(str, tmp->file, fd);
@@ -66,7 +66,7 @@ int  open_heredoc(s_redir *tmp)
     else
     {
         waitpid(pid, &status, 0);
-        global.in_herdoc = 0;
+        g_global.in_herdoc = 0;
         tmp->fd = open("example.txt", O_RDONLY, 0644);
         close(fd);
     }
