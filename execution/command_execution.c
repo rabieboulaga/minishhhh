@@ -19,6 +19,8 @@ int	path_check(char *str)
 	i = ft_strlen(str);
 	if (str[0] == 0)
 		return (0);
+	else if (str[0] == '/')
+		return (1);
 	else if (str[0] == '.' && str[1] == '/')
 		return (1);
 	else if (str[0] == '.' && str[1] == '.' && str[2] == '/')

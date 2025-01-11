@@ -28,7 +28,7 @@ int	utils2(char **cmd)
 	}
 	else
 	{
-		execve(g_global.path, cmd, g_global.env_copy);
+		// execve(g_global.path, cmd, g_global.env_copy);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		g_global.exited = 127;
