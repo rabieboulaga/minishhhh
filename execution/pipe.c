@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:47:51 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 05:48:03 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 16:03:15 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int pipe_left(int *pipefd, s_input *input)
 {
     int status;
     
+    status = 0;
     close(pipefd[0]);                       
     dup2(pipefd[1], STDOUT_FILENO);       
     close(pipefd[1]);                      

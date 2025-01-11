@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:52:34 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 05:15:38 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 19:22:23 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int     in_out_files(s_input *input)
         else if(tmp->tok == OUT)
         {
             fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC , 0666);
+            
             if (fd == -1)
             {
                 ft_putstr_fd("Minishell: ", 2);

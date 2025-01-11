@@ -6,13 +6,11 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:04:06 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/10 00:12:19 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 19:19:29 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-
 
 
 
@@ -22,8 +20,23 @@ void    pwd_update()
     char buff[PATH_MAX];
 
     i = 0;
-    while(global.env_copy[i] && ft_ncmp(global.env_copy[i], "OLDPWD", 6))
+    while(global.env_copy[i] && ft_ncmp(global.env_copy[i], "PWD", 3))
     {    
+        i++;
+    }
+    // free(global.env_copy[i]);    
+    getcwd(buff, sizeof(buff));
+    global.env_copy[i] = ft_strjoin("PWD=", buff);
+}
+
+void    oldpwd_update()
+{
+    int i;
+    char buff[PATH_MAX];
+
+    i = 0;
+    while(global.env_copy[i] && ft_ncmp(global.env_copy[i], "OLDPWD", 6))
+    {
         i++;
     }
     // free(global.env_copy[i]);    
@@ -60,18 +73,17 @@ int		cd(char **cmd)
     {
         tmp = getenv("HOME");
         if (tmp)
-        {
-            pwd_update();   
-            chdir(tmp);
-        }
+            (oldpwd_update(),chdir(tmp), pwd_update()); 
     }
     else if (cmd[1])
     {
-        pwd_update();   
+        oldpwd_update();   
         if (chdir(cmd[1]) == 0)
+        { 
+            pwd_update();   
             return(ft_exited(0, 0));
-        ft_putstr_fd("minishell: cd: ", 2);
-        ft_putstr_fd(cmd[1], 2);
+        }
+        (ft_putstr_fd("minishell: cd: ", 2), ft_putstr_fd(cmd[1], 2)); 
         ft_putstr_fd(": No such file or directory\n", 2);
         return(ft_exited(1, 1));
     }

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 05:50:11 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 06:00:05 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	find_path(char **cmd)
 int	cmd_execution(char **cmd)
 {
 	pid_t	pid;
-    int status;
-    
+	int		status;
+
 	pid = fork();
 	if (pid < 0)
 		return (0);
@@ -89,7 +89,7 @@ int	cmd_execution(char **cmd)
 			ft_putstr_fd("Minishell: ", 2);
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(" is a directory \n", 2);
-            exit(126);
+			exit(126);
 		}
 		else if (find_path(cmd) && !path_check(cmd[0]))
 		{
@@ -102,7 +102,6 @@ int	cmd_execution(char **cmd)
 			ft_putstr_fd(": No such file or directory\n", 2);
 			exit(127);
 		}
-        
 		if (path_check(cmd[0]) && access(cmd[0], F_OK) == 0) //./minishell
 		{
 			if (access(cmd[0], X_OK) == -1)
@@ -110,25 +109,25 @@ int	cmd_execution(char **cmd)
 				ft_putstr_fd("Minishell: ", 2);
 				ft_putstr_fd(cmd[0], 2);
 				ft_putstr_fd(" Permission denied \n", 2);
-                exit(126);
+				exit(126);
 			}
 			execve(cmd[0], cmd, global.env_copy);
-            exit(0);
+			exit(0);
 		}
 		else
 		{
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
-            global.exited = 127;
+			global.exited = 127;
 			exit(127);
-            // return (ft_exited(0, 127));
+			// return (ft_exited(0, 127));
 		}
 	}
 	else
-    {
-        waitpid(pid, &status, 0);
-        // global.exited = WEXITSTATUS(status);
-        global.exited = (((status) & 0xff00) >> 8);
-    }
+	{
+		waitpid(pid, &status, 0);
+		// global.exited = WEXITSTATUS(status);
+		global.exited = (((status)&0xff00) >> 8);
+	}
 	return (global.exited);
 }
