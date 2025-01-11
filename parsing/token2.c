@@ -67,19 +67,6 @@ char	*cmd_help(char *s, int l, int *k, int flag)
 	return (ret[i] = 0, ret);
 }
 
-char	**fill_command(char *s, int l, int *k, int flag)
-{
-	char	*prep;
-	char	**freturn;
-
-	if (l < 0)
-		return (NULL);
-	prep = cmd_help(s, l, k, flag);
-	freturn = ft_split(prep, 127);
-	prep = NULL;
-	return (freturn);
-}
-
 char	**prep_cmd(char *s, int *i, int flag, s_token tok)
 {
 	char	**freturn;
@@ -97,6 +84,19 @@ char	**prep_cmd(char *s, int *i, int flag, s_token tok)
 		return (NULL);
 	freturn = fill_command(s, str_len(s, *i, flag), i, flag);
 	return (freturn);
+}
+
+char	*ft_substr_len(char *s, int *i, int save)
+{
+	char	*str;
+
+	save = str_len(s, *i, 1);
+	if (save < 0)
+		return (NULL);
+	str = ft_substr(s, *i, save);
+	if (!str)
+		return (NULL);
+	return (str);
 }
 
 s_input	*token_2(char *s, int *i, s_token tok)
@@ -122,7 +122,7 @@ s_input	*token_2(char *s, int *i, s_token tok)
 		else
 			tok = return_token(s[save], s[save + 1]);
 	}
-	str = ft_substr(s, *i, str_len(s, *i, 1));
+	str = ft_substr_len(s, i, 1);
 	if (!str)
 		return (NULL);
 	return (incre(s, i), node_creation_cmd(str, redir, STR, 0));

@@ -63,3 +63,16 @@ int	build_redir_list(s_redir **head, s_redir *add)
 	}
 	return (1);
 }
+
+char	**fill_command(char *s, int l, int *k, int flag)
+{
+	char	*prep;
+	char	**freturn;
+
+	if (l < 0)
+		return (NULL);
+	prep = cmd_help(s, l, k, flag);
+	freturn = ft_split(prep, 127);
+	prep = NULL;
+	return (freturn);
+}

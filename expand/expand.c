@@ -59,9 +59,7 @@ char	*get_env_value(char *name)
 	int		i;
 	char	*value;
 	char	*save;
-	int		j;
 
-	j = 0;
 	i = 0;
 	while (g_global.env_copy[i])
 	{

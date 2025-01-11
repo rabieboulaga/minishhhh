@@ -212,7 +212,7 @@ int						redi_in(s_input *input);
 int						check_heredoc(s_input *input);
 
 int						ft_exited(int d, int exit);
-
+char					**fill_command(char *s, int l, int *k, int flag);
 void					delete_quotes(char **args);
 char					*new_cmd(char *s, int *flg);
 void					should_expnd(int *flg);
