@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 22:56:10 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:33:07 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	copying_2(char *v)
 	char	**tmp;
 
 	i = 0;
-	while (global.env_copy[i])
+	while (g_global.env_copy[i])
 		i++;
 	tmp = malloc((i + 2) * sizeof(char *));
-	ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(tmp));
+	ft_lstadd_back_garbage(&(g_global.garbage), ft_lstnew_garbage(tmp));
 	i = 0;
-	while (global.env_copy[i])
+	while (g_global.env_copy[i])
 	{
-		tmp[i] = global.env_copy[i];
+		tmp[i] = g_global.env_copy[i];
 		i++;
 	}
 	tmp[i++] = ft_strdup(v);
 	tmp[i] = NULL;
-	global.env_copy = tmp;
+	g_global.env_copy = tmp;
 }
 
 int	var_parser(char *v)
@@ -60,7 +60,7 @@ int	var_parser(char *v)
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(v, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-			return (global.exited = 1, 1);
+			return (g_global.exited = 1, 1);
 		}
 	}
 	if (v[0] == '=')
@@ -68,7 +68,7 @@ int	var_parser(char *v)
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(v, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
-		return (global.exited = 1, 1);
+		return (g_global.exited = 1, 1);
 	}
 	copying_2(v);
 	return (1);
@@ -83,14 +83,14 @@ int	check_variable(char *var)
 	len = 0;
 	while (var[len] && var[len] != '=')
 		len++;
-	while (global.env_copy[i])
+	while (g_global.env_copy[i])
 	{
-		if (ft_ncmp(global.env_copy[i], var, len + 1) == 0)
+		if (ft_ncmp(g_global.env_copy[i], var, len + 1) == 0)
 		{
-			global.env_copy[i] = ft_strdup(var);
+			g_global.env_copy[i] = ft_strdup(var);
 			return (1);
 		}
-		else if (ft_ncmp(global.env_copy[i], var, len) == 0 && var[len
+		else if (ft_ncmp(g_global.env_copy[i], var, len) == 0 && var[len
 				+ 1] == '\0')
 			return (1);
 		i++;
@@ -98,18 +98,18 @@ int	check_variable(char *var)
 	return (0);
 }
 
-// void    copying(s_global *global)
+// void    copying(s_g_global *g_global)
 // {
 //     int i;
 
 //     i = 0;
-//     while (global->env_copy[i])
+//     while (g_global->env_copy[i])
 //         i++;
-//     global->export = malloc((i + 1) * sizeof(char *));
+//     g_global->export = malloc((i + 1) * sizeof(char *));
 //     i = 0;
-//     while (global->env_copy[i])
+//     while (g_global->env_copy[i])
 //     {
-//         global->export[i] = ft_strdup(global->env_copy[i]);
+//         g_global->export[i] = ft_strdup(g_global->env_copy[i]);
 //         i++;
 //     }
 // }
@@ -121,14 +121,14 @@ int	export_listing(char **cmd)
 	len = 0;
 	if (!cmd[1])
 	{
-		while (global.env_copy[len])
+		while (g_global.env_copy[len])
 			len++;
 		sort_list(len);
 		len = 0;
-		while (global.env_copy[len])
+		while (g_global.env_copy[len])
 		{
 			printf("declare -x ");
-			putstr(global.env_copy[len]);
+			putstr(g_global.env_copy[len]);
 			len++;
 		}
 		return (1);

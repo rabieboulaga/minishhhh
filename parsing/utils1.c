@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htemsama <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/11 21:42:07 by htemsama          #+#    #+#             */
+/*   Updated: 2025/01/11 21:42:09 by htemsama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishell.h"
 
 s_token	return_token(char c1, char c2)
 {
-
 	if (c1 == '|' && c2 == '|')
 		return (OR);
 	if (c1 == '&' && c1 == '&')
@@ -47,23 +58,37 @@ s_input	*node_creation_cmd(char *s, s_redir *redir, s_token tok, int token_flag)
 	return (node);
 }
 
-int ft_isspace(char c)
+int	handle_single_quotes(const char *str, int *i)
 {
-	if(c ==  '\t' || c == '\n' || c == '\v' || c == '\f' 
-		|| c == '\r')
-		return(0);
+	(*i)++;
+	while (str[*i])
+	{
+		if (str[*i] == '\'')
+			return (0);
+		(*i)++;
+	}
+	return (2);
+}
+
+int	ft_isspace(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (0);
 	return (1);
 }
 
-int ft_strlen_no_space(char *str)
+int	ft_strlen_no_space(char *str)
 {
-	int i = 0;
-	int j = 0;
-	while(str[i] != '\0')
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if(ft_isspace(str[i]) == 0 && ft_isspace(str[i+1])==0)
+		if (ft_isspace(str[i]) == 0 && ft_isspace(str[i + 1]) == 0)
 			i++;
-		else if(ft_isspace(str[i]) == 0 && str[i+1] == '\0')
+		else if (ft_isspace(str[i]) == 0 && str[i + 1] == '\0')
 			i++;
 		else
 		{

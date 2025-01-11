@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 01:08:10 by htemsama          #+#    #+#             */
-/*   Updated: 2025/01/09 00:52:28 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:41:11 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
-	
 	i = 0;
 	if (s == NULL)
-		return 0;
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

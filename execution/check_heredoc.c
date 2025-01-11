@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 23:08:37 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 22:45:32 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:32:44 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	open_heredoc(s_redir *tmp)
 	{
 		while (1)
 		{
-			global.in_herdoc = 1;
+			g_global.in_herdoc = 1;
 			handle_signals(IN_HEREDOC);
 			str = readline(">>");
 			error_print(str, tmp->file, fd);
@@ -60,7 +60,7 @@ int	open_heredoc(s_redir *tmp)
 	else
 	{
 		waitpid(pid, &status, 0);
-		global.in_herdoc = 0;
+		g_global.in_herdoc = 0;
 		tmp->fd = open("example.txt", O_RDONLY, 0644);
 		close(fd);
 	}

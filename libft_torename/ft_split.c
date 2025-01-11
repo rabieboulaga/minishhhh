@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htemsama <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 14:20:01 by htemsama          #+#    #+#             */
-/*   Updated: 2023/11/26 14:20:02 by htemsama         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:33:07 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	**ft_calculcount(char const *s, char c)
 	}
 	count++;
 	str = (char **)malloc(count * sizeof(char *));
-	ft_lstadd_back_garbage(&(global.garbage), ft_lstnew_garbage(str));
+	ft_lstadd_back_garbage(&(g_global.garbage), ft_lstnew_garbage(str));
 	if (!str)
 	{
 		return (NULL);

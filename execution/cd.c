@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:04:06 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 22:31:48 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:32:44 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	pwd_update(void)
 	char	buff[PATH_MAX];
 
 	i = 0;
-	while (global.env_copy[i] && ft_ncmp(global.env_copy[i], "PWD", 3))
+	while (g_global.env_copy[i] && ft_ncmp(g_global.env_copy[i], "PWD", 3))
 	{
 		i++;
 	}
 	getcwd(buff, sizeof(buff));
-	global.env_copy[i] = ft_strjoin("PWD=", buff);
+	g_global.env_copy[i] = ft_strjoin("PWD=", buff);
 }
 
 void	oldpwd_update(void)
@@ -32,17 +32,17 @@ void	oldpwd_update(void)
 	char	buff[PATH_MAX];
 
 	i = 0;
-	while (global.env_copy[i] && ft_ncmp(global.env_copy[i], "OLDPWD", 6))
+	while (g_global.env_copy[i] && ft_ncmp(g_global.env_copy[i], "OLDPWD", 6))
 	{
 		i++;
 	}
 	getcwd(buff, sizeof(buff));
-	global.env_copy[i] = ft_strjoin("OLDPWD=", buff);
+	g_global.env_copy[i] = ft_strjoin("OLDPWD=", buff);
 }
 
 int	ft_exited(int d, int exit)
 {
-	global.exited = exit;
+	g_global.exited = exit;
 	return (d);
 }
 

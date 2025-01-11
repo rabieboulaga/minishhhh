@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 22:37:51 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:33:07 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	help(char **cmd)
 	char	*tmp;
 	int		i;
 
-	tmp = global.path;
+	tmp = g_global.path;
 	i = 0;
 	while (*tmp != '=')
 		tmp++;
@@ -45,13 +45,13 @@ int	help(char **cmd)
 		while (test[i])
 		{
 			tmp = ft_strjoin(test[i], "/");
-			global.path = ft_strjoin(tmp, cmd[0]);
-			if (access(global.path, X_OK) == 0)
+			g_global.path = ft_strjoin(tmp, cmd[0]);
+			if (access(g_global.path, X_OK) == 0)
 				return (1);
 			i++;
 		}
 	}
-	return (global.wall = 1, 0);
+	return (g_global.wall = 1, 0);
 }
 
 int	find_path(char **cmd)
@@ -59,12 +59,12 @@ int	find_path(char **cmd)
 	int	i;
 
 	i = 0;
-	while (global.env_copy[i])
+	while (g_global.env_copy[i])
 	{
-		if (ft_ncmp("PATH", global.env_copy[i], 4) == 0
-			&& global.env_copy[i][4] == '=')
+		if (ft_ncmp("PATH", g_global.env_copy[i], 4) == 0
+			&& g_global.env_copy[i][4] == '=')
 		{
-			global.path = ft_strdup(global.env_copy[i]);
+			g_global.path = ft_strdup(g_global.env_copy[i]);
 			if (help(cmd))
 				return (1);
 		}
@@ -90,7 +90,7 @@ int	cmd_execution(char **cmd)
 	else
 	{
 		waitpid(pid, &status, 0);
-		global.exited = (((status) & 0xff00) >> 8);
+		g_global.exited = (((status) & 0xff00) >> 8);
 	}
-	return (global.exited);
+	return (g_global.exited);
 }

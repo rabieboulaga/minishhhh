@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:41:39 by rabia             #+#    #+#             */
-/*   Updated: 2025/01/11 23:19:35 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:43:08 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,25 @@ int	help_unset(char **cmd, int i, int j)
 		return (ft_exited(0, 0));
 	while (cmd[i])
 	{
-		while (global.env_copy[j])
+		while (g_global.env_copy[j])
 		{
-			if (env_cmp(cmd[i], global.env_copy[j]))
+			if (env_cmp(cmd[i], g_global.env_copy[j]))
 			{
-				global.env_copy[j] = NULL;
-				while (global.env_copy[j + 1])
+				g_global.env_copy[j] = NULL;
+				while (g_global.env_copy[j + 1])
 				{
-					if (global.env_copy[j + 1])
-						global.env_copy[j] = global.env_copy[j + 1];
+					if (g_global.env_copy[j + 1])
+						g_global.env_copy[j] = g_global.env_copy[j + 1];
 					j++;
 				}
-				global.env_copy[j] = NULL;
+				g_global.env_copy[j] = NULL;
 			}
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-    return 0;
+	return (0);
 }
 
 int	unset(char **cmd)
