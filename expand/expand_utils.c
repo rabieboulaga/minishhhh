@@ -39,7 +39,9 @@ int	handle_env_var(char **word, int i)
 int	handle_dollar_sign(char **word, int i, char quote)
 {
 	if ((*word)[i + 1] == '?')
+	{
 		return (handle_exit_status(word, i));
+	}
 	else if ((*word)[i + 1] >= '0' && (*word)[i + 1] <= '9')
 		return (handle_numeric(word, i));
 	else if (is_legit((*word)[i + 1]) && quote != '\'')

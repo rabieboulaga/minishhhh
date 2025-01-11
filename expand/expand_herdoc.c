@@ -40,7 +40,7 @@ int	handle_exit_status(char **word, int i)
 		return (1);
 	new_word = ft_strjoin_three(before, exit_str, after);
 	*word = new_word;
-	return (2);
+	return (1);
 }
 
 char	*replace_substring(char *str, int start, int len, char *new_str)

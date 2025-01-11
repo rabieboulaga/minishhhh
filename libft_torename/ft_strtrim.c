@@ -41,7 +41,7 @@ static int	get_last_position(char const *s, char const *set)
 {
 	size_t	i;
 
-	i = ft_strlen(s) - 1;
+	i = ft_strlen(s) ;
 	while (i > 0 && (ft_int_str(s[i], set) == 1))
 		i--;
 	return (i + 1);
