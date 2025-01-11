@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/10 00:22:17 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 02:35:14 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void    copying_II(char *v)
     global.env_copy = tmp;
 }
 
-// ------>>>>>>>var+=value
 int     var_parser(char *v)
 {
     int i;
@@ -70,7 +69,6 @@ int     var_parser(char *v)
         ft_putstr_fd(v, 2);
         ft_putstr_fd("': not a valid identifier\n", 2);
         return (global.exited = 1, 1);
-
     }
     copying_II(v);
     return 1;
@@ -87,14 +85,13 @@ int check_variable(char *var)
         len++;
     while (global.env_copy[i])
     {    
-        if (ft_ncmp(global.env_copy[i], var, len + 1) == 0)//this is the same variable (change the varible value 1-free 2-strdup)
+        if (ft_ncmp(global.env_copy[i], var, len + 1) == 0)
         {
-            // free(global.env_copy[i]);
             global.env_copy[i] = ft_strdup(var);
             return 1;
         }
         else if (ft_ncmp(global.env_copy[i], var, len) == 0 && var[len + 1] == '\0')
-            return 1; // is just var'0'
+            return 1;
         i++;
     }
     return 0;
@@ -148,7 +145,7 @@ int     export(char **cmd)
     i = 1;
 
     if (export_listing(cmd))
-        return 1;
+        return (ft_exited(1, 0));;
     while (cmd[i])
     {
         j = 0;

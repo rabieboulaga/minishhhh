@@ -6,11 +6,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+#include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft_torename/libft.h"
 #include <limits.h>
 #include <sys/wait.h>
+
 
 # define IN_CHILD 6 
 # define IN_PARENT 7
@@ -158,8 +160,8 @@ int	check_syntax(s_token tok, char *s);
 int build_redir_list(s_redir **head, s_redir *add);
 int	check_true(s_token tok);	
 s_redir	*node_create_redirection(char **s, s_token tok);
-void ft_execute(s_input *input);
-void exec_str(s_input *input);
+int ft_execute(s_input *input);
+int 	exec_str(s_input *input);
 int    expand(s_input *input);
 char *expand_var(char *str, int *i);
 char **parsing_cmd(char *str);

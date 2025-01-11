@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:42:59 by rabia             #+#    #+#             */
-/*   Updated: 2025/01/08 18:31:38 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 01:35:39 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int     env(char **cmd)
     {
         printf("env: ‘%s’: No such file or directory\n", cmd[1]);
         global.exited = 88;
-        return 1;
+        return (ft_exited(1, 127));
     }
     while (global.env_copy[i])
     {
@@ -33,6 +33,6 @@ int     env(char **cmd)
             printf("%s\n", global.env_copy[i]);
         i++;
     }
-    return (0);
+    return (ft_exited(1, 0));
 }
 // ‘%s’ check if there is any problem

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:52:34 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/06 00:10:16 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 05:15:38 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int     in_out_files(s_input *input)
             if (fd == -1)
             {
                 ft_putstr_fd("Minishell: ", 2);
-                return (perror(tmp->file), 0);
+                return(perror(tmp->file), 0);
             }
             do_direct(fd, STDOUT_FILENO);
         }

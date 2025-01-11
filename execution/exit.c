@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 05:57:49 by rboulaga          #+#    #+#             */
-/*   Updated: 2025/01/11 00:18:09 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 01:43:26 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int     ft_exit(char **cmd)
     if (flag == 2)
     {
         global.exited = ft_atoi(cmd[1]);
-        global.exited %= 255;
+        global.exited %= 256;
         free_garbage();
         exit(global.exited);
     }

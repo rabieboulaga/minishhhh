@@ -33,7 +33,7 @@ int check_beggining(char *str)
     }
     else if (tok == PIPE ||  tok == RPR)
     {
-        ft_printf("bash: syntax error near unexpected token %c'\n", str[0]);
+        printf("bash: syntax error near unexpected token %c'\n", str[0]);
         global.exited = 2;
         return (0);
     }

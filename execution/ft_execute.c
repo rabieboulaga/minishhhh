@@ -2,34 +2,25 @@
 
 
 
-void ft_execute(s_input *input)
+int ft_execute(s_input *input)
 {
     if(!input)
-        return;
+        return 8000;
     else
         check_heredoc(input);
     if (input->redirections)
     {    
         redi_in(input);
     }
-    // if(input->redirections!= NULL)
-    // {
-    //     printf("kgkdjhfjksdfhsd\n");
-    //     if (input->redirections->fd != -1)
-    //     {
-    //         printf("helloooooo\n");
-    //     }
-    // exit(0);
-    // }
-    else if(input->tok == AND)
-        return(exec_and(input));
+    // else if(input->tok == AND)
+        // return(exec_and(input)); 80000000000000000000000000000000 u need to fix this
     // else if(input->tok == OR)
     //     return(exec_or(input));
     else if(input->tok == PIPE)
         single_pipe(input);
     else if(input->tok == STR)
         return(exec_str(input));
-    
+    return 0;
 }
 
 void exec_and(s_input *input)
@@ -119,7 +110,7 @@ void    fill_between_quote_1(char **str, char *s, int *i)
 // 			*(*str) = '\0';
 // 			return ;
 // 		}
-// 		else
+// 		else:   
 // 			*(*str)++ = s[(*i)++];
 // 		*(*str) = '\0';
 // 	}
@@ -143,7 +134,7 @@ void    fill_between_quote_1(char **str, char *s, int *i)
 //     }
 // }
 
-void exec_str(s_input *input)
+int exec_str(s_input *input)
 {
     // int fd0;
 
@@ -151,7 +142,7 @@ void exec_str(s_input *input)
     input->cmd = parsing_cmd(input->command);
     if(!input->cmd)
     {
-        return ;
+        return 8000;
     }
     if (input->cmd && !input->cmd[0])
         (input->cmd = NULL);
@@ -166,10 +157,10 @@ void exec_str(s_input *input)
             close(input->redirections->fd);  
             // dup2( fd0  ,STDIN_FILENO);
             // close(fd0);
-            return;
+            return 8000;
         }
     }
-    builtins(input->cmd);
+    return (builtins(input->cmd));
 }
 
 int    expand(s_input *input)

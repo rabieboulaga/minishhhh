@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:24:54 by rabie             #+#    #+#             */
-/*   Updated: 2025/01/10 06:06:18 by rboulaga         ###   ########.fr       */
+/*   Updated: 2025/01/11 04:37:36 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int    builtins(char **cmd)
     else if (ft_ncmp("exit", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)
         ft_exit(cmd);
     else
-        cmd_execution(cmd);
+        return (cmd_execution(cmd));
     // free_list(cmd);
     return 0;
 }
