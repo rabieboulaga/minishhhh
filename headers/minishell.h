@@ -88,6 +88,8 @@ void					ft_lstadd_back_garbage(s_garbage **lst, s_garbage *new);
 void					*ft_malloc(int size);
 char					*replace_substring(char *str, int start, int len,
 							char *new_str);
+void					handle_quit(int signum);
+void					handle_heredoc(int sig);
 
 int						ft_isspace(char c);
 int						ft_strlen_no_space(char *str);

@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-static void	handle_heredoc(int sig)
+void	handle_heredoc(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
@@ -36,7 +36,7 @@ void	handle_signals(int sig)
 	if (sig == IN_PARENT)
 	{
 		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, handle_quit);
 		g_global.exited = 130;
 	}
 	if (sig == BEFORE_READLINE)
@@ -66,10 +66,12 @@ void	handle_quit(int signum)
 	{
 		signal(SIGQUIT, SIG_IGN);
 	}
-	if (g_global.executed == 1)
+	if (g_global.executed != 0)
 	{
 		if (g_global.in_herdoc == 0)
+		{
 			ft_putstr_fd("Quit (core dumped)\n", 2);
+		}
 	}
 }
 

@@ -47,23 +47,23 @@ int	open_heredoc(s_redir *tmp)
 
 	pid = fork();
 	fd = open("example.txt", O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	g_global.in_herdoc = 1;
 	if (pid == 0)
 	{
 		while (1)
 		{
-			g_global.in_herdoc = 1;
 			handle_signals(IN_HEREDOC);
-			str = readline(">>");
+			str = readline("> ");
 			error_print(str, tmp->file, fd);
 		}
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		g_global.in_herdoc = 0;
 		tmp->fd = open("example.txt", O_RDONLY, 0644);
 		close(fd);
 	}
+	g_global.in_herdoc = 0;
 	return (0);
 }
 
