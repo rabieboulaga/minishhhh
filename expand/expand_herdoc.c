@@ -296,7 +296,6 @@ static char	*process_word_herdoc(char *word)
 		{
 			while(result[i+1] == '$')
 			{
-				// i++;
 				result++;
 			}
 		}
