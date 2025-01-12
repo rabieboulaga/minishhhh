@@ -90,7 +90,9 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		g_global.executed = 1;
 		add_history(rl);
+		// printf("[%s]\n", rl);
 		input = ft_parse(rl);
+		// printf("[[[[%s]]]]\n", input->command);
 		expand_real(input);
 		ft_execute(input);
 		g_global.executed = 0;
