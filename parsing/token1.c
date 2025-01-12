@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-int	check_not_operator(s_token tok)
+int	check_not_operator(t_token tok)
 {
 	if (tok == STR || tok == IN || tok == OUT || tok == APPEND
 		|| tok == HEREDOC)
@@ -43,7 +43,7 @@ int	check_spaces(char c)
 		return (0);
 }
 
-int	check_syntax_help(s_token tok, s_token next)
+int	check_syntax_help(t_token tok, t_token next)
 {
 	if (tok == OR || tok == AND || tok == PIPE)
 	{
@@ -71,10 +71,10 @@ int	check_syntax_help(s_token tok, s_token next)
 	return (0);
 }
 
-int	token_1(s_input **head, char *s, int *i, int *par)
+int	token_1(t_input **head, char *s, int *i, int *par)
 {
-	s_token	tok;
-	s_input	*new;
+	t_token	tok;
+	t_input	*new;
 
 	if (s[*i] == '\0')
 		tok = return_token(s[*i], 'x');

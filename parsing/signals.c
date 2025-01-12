@@ -61,7 +61,7 @@ void	sig_handler(int signum)
 void	handle_quit(int signum)
 {
 	(void)signum;
-			g_global.exited = 131;
+	g_global.exited = 131;
 	if (!g_global.executed)
 	{
 		signal(SIGQUIT, SIG_IGN);

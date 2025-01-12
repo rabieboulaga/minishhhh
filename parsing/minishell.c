@@ -12,13 +12,13 @@
 
 #include "../headers/minishell.h"
 
-s_g_global	g_global;
+t_g_global	g_global;
 
-s_garbage	*ft_lstnew_garbage(void *ptr)
+t_garbage	*ft_lstnew_garbage(void *ptr)
 {
-	s_garbage	*new_node;
+	t_garbage	*new_node;
 
-	new_node = malloc(sizeof(s_garbage));
+	new_node = malloc(sizeof(t_garbage));
 	if (!new_node)
 		return (NULL);
 	new_node->ptr = ptr;
@@ -26,9 +26,9 @@ s_garbage	*ft_lstnew_garbage(void *ptr)
 	return (new_node);
 }
 
-void	ft_lstadd_back_garbage(s_garbage **lst, s_garbage *new)
+void	ft_lstadd_back_garbage(t_garbage **lst, t_garbage *new)
 {
-	s_garbage	*current;
+	t_garbage	*current;
 
 	if (!new || !lst)
 		return ;
@@ -45,8 +45,8 @@ void	ft_lstadd_back_garbage(s_garbage **lst, s_garbage *new)
 
 void	free_garbage(void)
 {
-	s_garbage	*current;
-	s_garbage	*tmp;
+	t_garbage	*current;
+	t_garbage	*tmp;
 
 	current = g_global.garbage;
 	while (current)
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 	char	*rl;
 	int		fd_input;
 	int		fd_output;
-	s_input	*input;
+	t_input	*input;
 
 	(void)argc;
 	(void)argv;
@@ -90,9 +90,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		g_global.executed = 1;
 		add_history(rl);
-		// printf("[%s]\n", rl);
 		input = ft_parse(rl);
-		// printf("[[[[%s]]]]\n", input->command);
 		expand_real(input);
 		ft_execute(input);
 		g_global.executed = 0;

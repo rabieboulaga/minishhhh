@@ -35,7 +35,7 @@ void	check_flag(int flag, char *s, int *k)
 		s[(*k) - 1] = 127;
 }
 
-int	check_true(s_token tok)
+int	check_true(t_token tok)
 {
 	if (tok == STR || tok == IN || tok == OUT || tok == APPEND
 		|| tok == HEREDOC)
@@ -44,9 +44,9 @@ int	check_true(s_token tok)
 		return (0);
 }
 
-int	build_redir_list(s_redir **head, s_redir *add)
+int	build_redir_list(t_redir **head, t_redir *add)
 {
-	s_redir	*plus;
+	t_redir	*plus;
 
 	if (!head || !add)
 		return (0);

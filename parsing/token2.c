@@ -12,9 +12,9 @@
 
 #include "../headers/minishell.h"
 
-int	check_syntax(s_token tok, char *s)
+int	check_syntax(t_token tok, char *s)
 {
-	s_token	check;
+	t_token	check;
 
 	check = return_token(*s, *(s + 1));
 	if (check_syntax_help(tok, check) == 1)
@@ -67,7 +67,7 @@ char	*cmd_help(char *s, int l, int *k, int flag)
 	return (ret[i] = 0, ret);
 }
 
-char	**prep_cmd(char *s, int *i, int flag, s_token tok)
+char	**prep_cmd(char *s, int *i, int flag, t_token tok)
 {
 	char	**freturn;
 
@@ -99,11 +99,11 @@ char	*ft_substr_len(char *s, int *i, int save)
 	return (str);
 }
 
-s_input	*token_2(char *s, int *i, s_token tok)
+t_input	*token_2(char *s, int *i, t_token tok)
 {
 	int		save;
 	char	*str;
-	s_redir	*redir;
+	t_redir	*redir;
 
 	save = *i;
 	redir = NULL;

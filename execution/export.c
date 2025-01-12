@@ -98,7 +98,7 @@ int	check_variable(char *var)
 	return (0);
 }
 
-// void    copying(s_g_global *g_global)
+// void    copying(t_g_global *g_global)
 // {
 //     int i;
 

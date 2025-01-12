@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-int	pipe_left(int *pipefd, s_input *input)
+int	pipe_left(int *pipefd, t_input *input)
 {
 	int	status;
 
@@ -32,7 +32,7 @@ int	pipe_left(int *pipefd, s_input *input)
 	return (status);
 }
 
-int	single_pipe(s_input *input)
+int	single_pipe(t_input *input)
 {
 	int		status;
 	int		pipefd[2];
@@ -61,7 +61,7 @@ int	single_pipe(s_input *input)
 	return (0);
 }
 
-// int     exe(char **cmd ,s_input *input)
+// int     exe(char **cmd ,t_input *input)
 // {
 
 //     if (input->tok == PIPE)

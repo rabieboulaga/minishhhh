@@ -67,13 +67,13 @@ void	incre(char *s, int *i)
 		(*i)++;
 }
 
-s_redir	*node_create_redirection(char **s, s_token tok)
+t_redir	*node_create_redirection(char **s, t_token tok)
 {
-	s_redir	*node;
+	t_redir	*node;
 
 	if (!s)
 		return (NULL);
-	node = (s_redir *)ft_malloc(sizeof(s_redir));
+	node = (t_redir *)ft_malloc(sizeof(t_redir));
 	if (!node)
 	{
 		printf("failes\n");

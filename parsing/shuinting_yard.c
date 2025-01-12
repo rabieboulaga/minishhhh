@@ -12,8 +12,8 @@
 
 #include "../headers/minishell.h"
 
-void	the_shunting_yard(s_input **input, s_input **tok_stack,
-		s_input **new_stack)
+void	the_organizer(t_input **input, t_input **tok_stack,
+		t_input **new_stack)
 {
 	while (*input)
 	{
@@ -38,22 +38,22 @@ void	the_shunting_yard(s_input **input, s_input **tok_stack,
 	}
 }
 
-s_input	*shunting_yard(s_input **input)
+t_input	*organizer(t_input **input)
 {
-	s_input	*tok_stack;
-	s_input	*new_stack;
+	t_input	*tok_stack;
+	t_input	*new_stack;
 
 	tok_stack = NULL;
 	new_stack = NULL;
-	the_shunting_yard(input, &tok_stack, &new_stack);
+	the_organizer(input, &tok_stack, &new_stack);
 	while (tok_stack)
 		push(&tok_stack, &new_stack, 0);
 	return (new_stack);
 }
 
-void	push(s_input **a_input, s_input **b_input, int flag)
+void	push(t_input **a_input, t_input **b_input, int flag)
 {
-	s_input	*sep;
+	t_input	*sep;
 
 	if (!a_input || !(*a_input))
 		return ;
@@ -68,7 +68,7 @@ void	push(s_input **a_input, s_input **b_input, int flag)
 		build_command_list(b_input, sep);
 }
 
-void	push_2(s_input **top, s_input *to_add)
+void	push_2(t_input **top, t_input *to_add)
 {
 	if (!to_add)
 		return ;
@@ -82,7 +82,7 @@ void	push_2(s_input **top, s_input *to_add)
 	}
 }
 
-void	remove_top(s_input **tok_s)
+void	remove_top(t_input **tok_s)
 {
 	if (!(*tok_s)->right)
 		*tok_s = NULL;

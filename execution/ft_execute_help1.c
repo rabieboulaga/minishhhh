@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-int	ft_execute(s_input *input)
+int	ft_execute(t_input *input)
 {
 	if (!input)
 		return (8000);
@@ -33,14 +33,14 @@ int	ft_execute(s_input *input)
 	return (0);
 }
 
-void	exec_and(s_input *input)
+void	exec_and(t_input *input)
 {
 	ft_execute(input->left);
 	if (g_global.exited == 0)
 		ft_execute(input->right);
 }
 
-void	exec_or(s_input *input)
+void	exec_or(t_input *input)
 {
 	ft_execute(input->left);
 	if (g_global.exited != 0)
@@ -61,7 +61,7 @@ void	fill_between_quote_1(char **str, char *s, int *i)
 	}
 }
 
-int	exec_str(s_input *input)
+int	exec_str(t_input *input)
 {
 	input->cmd = parsing_cmd(input->command);
 	if (!input->cmd)

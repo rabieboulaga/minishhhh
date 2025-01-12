@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-void	expand_real(s_input *input)
+void	expand_real(t_input *input)
 {
 	if (!input)
 		return ;

@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-int	expand(s_input *input)
+int	expand(t_input *input)
 {
 	input->cmd = parsing_cmd(input->command);
 	if (!input->cmd)

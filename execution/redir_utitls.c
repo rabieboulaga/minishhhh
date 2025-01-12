@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-int	red_utils1_in(s_redir *tmp)
+int	red_utils1_in(t_redir *tmp)
 {
 	int	fd;
 
@@ -29,7 +29,7 @@ int	red_utils1_in(s_redir *tmp)
 	return (1);
 }
 
-int	red_utils2_out(s_redir *tmp)
+int	red_utils2_out(t_redir *tmp)
 {
 	int	fd;
 
@@ -46,7 +46,7 @@ int	red_utils2_out(s_redir *tmp)
 	return (1);
 }
 
-int	red_utils3_append(s_redir *tmp)
+int	red_utils3_append(t_redir *tmp)
 {
 	int	fd;
 

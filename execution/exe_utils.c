@@ -23,7 +23,6 @@ int	utils2(char **cmd)
 			ft_putstr_fd(" Permission denied \n", 2);
 			free_garbage();
 			exit(126);
-			// return -1;
 		}
 		execve(cmd[0], cmd, g_global.env_copy);
 		exit(0);
@@ -34,7 +33,6 @@ int	utils2(char **cmd)
 		ft_putstr_fd(": command not found\n", 2);
 		free_garbage();
 		exit(127);
-		// return -1;
 	}
 	return (0);
 }

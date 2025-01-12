@@ -38,7 +38,7 @@ int	error_print(char *str, char *file, int fd)
 	return (0);
 }
 
-int	open_heredoc(s_redir *tmp)
+int	open_heredoc(t_redir *tmp)
 {
 	char	*str;
 	int		fd;
@@ -67,9 +67,9 @@ int	open_heredoc(s_redir *tmp)
 	return (0);
 }
 
-int	check_heredoc(s_input *input)
+int	check_heredoc(t_input *input)
 {
-	s_redir	*tmp;
+	t_redir	*tmp;
 
 	tmp = input->redirections;
 	if (input->tok == PIPE)

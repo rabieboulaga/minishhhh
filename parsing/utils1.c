@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-s_token	return_token(char c1, char c2)
+t_token	return_token(char c1, char c2)
 {
 	if (c1 == '|' && c2 == '|')
 		return (OR);
@@ -38,11 +38,11 @@ s_token	return_token(char c1, char c2)
 		return (STR);
 }
 
-s_input	*node_creation_cmd(char *s, s_redir *redir, s_token tok, int token_flag)
+t_input	*node_creation_cmd(char *s, t_redir *redir, t_token tok, int token_flag)
 {
-	s_input	*node;
+	t_input	*node;
 
-	node = (s_input *)ft_malloc(sizeof(s_input));
+	node = (t_input *)ft_malloc(sizeof(t_input));
 	if (!node)
 	{
 		printf("failes\n");

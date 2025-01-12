@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-// int     redi_in(s_input *input)
+// int     redi_in(t_input *input)
 // {
 //     int fd;
 //     int fd0;
@@ -55,7 +55,7 @@ int	do_direct(int fd, int dest)
 	return (EXIT_SUCCESS);
 }
 
-int	redi_in(s_input *input)
+int	redi_in(t_input *input)
 {
 	int	fd0;
 	int	fd1;
@@ -71,9 +71,9 @@ int	redi_in(s_input *input)
 	return (1);
 }
 
-int	in_out_files(s_input *input)
+int	in_out_files(t_input *input)
 {
-	s_redir	*tmp;
+	t_redir	*tmp;
 
 	tmp = input->redirections;
 	while (tmp != NULL)

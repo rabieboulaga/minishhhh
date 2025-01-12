@@ -12,9 +12,9 @@
 
 #include "../headers/minishell.h"
 
-int	check_syntax_error(s_token tok, char *s)
+int	check_syntax_error(t_token tok, char *s)
 {
-	s_token	next;
+	t_token	next;
 
 	next = return_token(*s, *(s + 1));
 	if (check_syntax_help(tok, next))
@@ -66,12 +66,12 @@ int	return_token_syntax(int tok, char *s, int *i, int *par)
 	return (1);
 }
 
-s_input	*creat_node_command(char *s, s_redir *redir, s_token tok,
+t_input	*creat_node_command(char *s, t_redir *redir, t_token tok,
 		int token_flag)
 {
-	s_input	*node;
+	t_input	*node;
 
-	node = ft_malloc(sizeof(s_input));
+	node = ft_malloc(sizeof(t_input));
 	if (!node)
 	{
 		ft_putstr_fd("failes\n", 2);
@@ -87,9 +87,9 @@ s_input	*creat_node_command(char *s, s_redir *redir, s_token tok,
 	return (node);
 }
 
-int	build_command_list(s_input **head, s_input *add)
+int	build_command_list(t_input **head, t_input *add)
 {
-	s_input	*help;
+	t_input	*help;
 
 	if (!head || !add)
 		return (0);
@@ -106,7 +106,7 @@ int	build_command_list(s_input **head, s_input *add)
 	return (1);
 }
 
-int	check_command(s_token tok)
+int	check_command(t_token tok)
 {
 	if (tok == IN || tok == OUT || tok == APPEND || tok == HEREDOC)
 		return (4);

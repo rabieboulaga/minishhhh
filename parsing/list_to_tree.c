@@ -12,7 +12,7 @@
 
 #include "../headers/minishell.h"
 
-s_input	*list_to_tree(s_input *root)
+t_input	*list_to_tree(t_input *root)
 {
 	if (!root)
 		return (NULL);

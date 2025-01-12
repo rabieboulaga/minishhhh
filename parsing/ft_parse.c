@@ -14,7 +14,7 @@
 
 int	check_beggining(char *str)
 {
-	s_token	tok;
+	t_token	tok;
 
 	if (str[0] == '\0')
 		tok = return_token(str[0], 'x');
@@ -36,9 +36,9 @@ int	check_beggining(char *str)
 	return (1);
 }
 
-s_input	*tokenizer(char *str)
+t_input	*tokenizer(char *str)
 {
-	s_input	*input;
+	t_input	*input;
 	int		parenthes;
 	int		i;
 
@@ -93,10 +93,10 @@ int	check_unclosed_quote(char *str)
 	return (0);
 }
 
-s_input	*ft_parse(char *rl)
+t_input	*ft_parse(char *rl)
 {
 	char	*str;
-	s_input	*input;
+	t_input	*input;
 
 	if (check_unclosed_quote(rl))
 	{
@@ -113,7 +113,7 @@ s_input	*ft_parse(char *rl)
 	input = tokenizer(str);
 	if (!input)
 		return (NULL);
-	input = shunting_yard(&input);
+	input = organizer(&input);
 	while (input->right)
 		input = input->right;
 	input = list_to_tree(input);
