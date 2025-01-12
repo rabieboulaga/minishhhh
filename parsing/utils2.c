@@ -19,7 +19,7 @@ void	handle_interrupt(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_global.status = 130;
+	g_global.exited = 130;
 }
 
 int	choose_str(char c, int flag)

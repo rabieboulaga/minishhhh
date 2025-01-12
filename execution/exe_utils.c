@@ -32,7 +32,6 @@ int	utils2(char **cmd)
 	{
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		g_global.exited = 127;
 		free_garbage();
 		exit(127);
 		// return -1;

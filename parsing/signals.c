@@ -15,9 +15,9 @@
 void	handle_heredoc(int sig)
 {
 	(void)sig;
+	g_global.exited = 130;
 	write(1, "\n", 1);
 	close(STDIN_FILENO);
-	g_global.exited = 130;
 	exit(130);
 }
 
@@ -37,7 +37,6 @@ void	handle_signals(int sig)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, handle_quit);
-		g_global.exited = 130;
 	}
 	if (sig == BEFORE_READLINE)
 	{
@@ -62,6 +61,7 @@ void	sig_handler(int signum)
 void	handle_quit(int signum)
 {
 	(void)signum;
+			g_global.exited = 131;
 	if (!g_global.executed)
 	{
 		signal(SIGQUIT, SIG_IGN);
