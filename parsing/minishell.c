@@ -96,5 +96,6 @@ int	main(int argc, char **argv, char **env)
 		g_global.executed = 0;
 	}
 	free_garbage();
+	rl_clear_history();
 	return (0);
 }

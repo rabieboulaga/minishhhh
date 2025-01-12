@@ -21,18 +21,21 @@ int	utils2(char **cmd)
 			ft_putstr_fd("Minishell: ", 2);
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(" Permission denied \n", 2);
+			free_garbage();
 			exit(126);
+			// return -1;
 		}
 		execve(cmd[0], cmd, g_global.env_copy);
 		exit(0);
 	}
 	else
 	{
-		// execve(g_global.path, cmd, g_global.env_copy);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		g_global.exited = 127;
+		free_garbage();
 		exit(127);
+		// return -1;
 	}
 	return (0);
 }
@@ -44,6 +47,7 @@ int	utils1(char **cmd)
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(" is a directory \n", 2);
+		free_garbage();
 		exit(126);
 	}
 	else if (find_path(cmd) && !path_check(cmd[0]))
@@ -56,6 +60,7 @@ int	utils1(char **cmd)
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		free_garbage();
 		exit(127);
 	}
 	return (0);
